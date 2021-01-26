@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:minHeight="?attr/actionBarSize"
+        app:title="@string/Registro"
+        android:theme="?attr/actionBarTheme" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_horizontal"
+                android:text="@string/bienv2"
+                android:textColor="@color/blanco_campos_medium"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/textNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoNombre"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/blanco_campos"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:background="@drawable/edittext_background"/>
+
+            <EditText
+                android:id="@+id/textApellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/stringApellido"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/blanco_campos"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:background="@drawable/edittext_background"/>
+
+            <EditText
+                android:id="@+id/textUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/stringTextusername"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/blanco_campos"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:background="@drawable/edittext_background"/>
+
+            <EditText
+                android:id="@+id/textContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoContra"
+                android:inputType="textPassword"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"/>
+
+            <EditText
+                android:id="@+id/textcontrasena2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoRepContra"
+                android:inputType="textPassword"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background" />
+
+            <EditText
+                android:id="@+id/textCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoMail"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/tarjeta"
+                android:textColor="@color/blanco_campos"
+                android:layout_marginTop="10dp"/>
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/fechaVenc"
+                android:textColor="@color/blanco_campos"
+                android:layout_marginTop="10dp"/>
+
+            <CheckBox
+                android:id="@+id/checkTerminos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/blanco_campos"
+                android:text="@string/terminosYCondiciones" />
+
+            <Button
+                android:id="@+id/buttonRegistrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/botonRegistro"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

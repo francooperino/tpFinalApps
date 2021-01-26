@@ -1,3 +1,9 @@
 <resources>
+    <string name="bienvenidosString">Bienvenidos</string>
+    <string name="descripcionString">ventaYa es la mejor plataforma para vender y comprar articulos en linea. Que esperas tarambana!!</string>
+    <string name="iniciarsesionString">Iniciar sesión</string>
+    <string name="registrarsenString">Registrarse</string>
+
     <string name="app_name">ventaYa</string>
+
 </resources>
