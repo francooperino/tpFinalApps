@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
-                android:hint="@string/stringApellido"
+                android:hint="@string/apellido"
                 android:inputType="textPersonName"
                 android:textColorHint="@color/blanco_campos"
                 android:layout_marginTop="10dp"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
-                android:hint="@string/stringTextusername"
+                android:hint="@string/textusername"
                 android:inputType="textPersonName"
                 android:textColorHint="@color/blanco_campos"
                 android:layout_marginTop="10dp"
@@ -114,25 +114,6 @@
                 android:padding="8dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_background"/>
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/tarjeta"
-                android:textColor="@color/blanco_campos"
-                android:layout_marginTop="10dp"/>
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/fechaVenc"
-                android:textColor="@color/blanco_campos"
-                android:layout_marginTop="10dp"/>
 
             <CheckBox
                 android:id="@+id/checkTerminos"

@@ -3,7 +3,52 @@
     <string name="descripcionString">ventaYa es la mejor plataforma para vender y comprar articulos en linea. Que esperas tarambana!!</string>
     <string name="iniciarsesionString">Iniciar sesión</string>
     <string name="registrarsenString">Registrarse</string>
+    <string name="apellido">Apellido</string>
+    <string name="textusername">Nombre de usuario</string>
+    <string name="campoContra">Contraseña</string>
 
     <string name="app_name">ventaYa</string>
+
+
+    --copiadas de sendmeal
+    <string name="bienv">Bienvenido</string>
+    <string name="bienv2">Registrate para empezar a comprar o vender!</string>
+
+    <string name="campoNombre">Nombre</string>
+    <string name="campoRepContra">Repetir contraseña</string>
+    <string name="campoMail">Email</string>
+    <string name="tarjeta">Tipo de tarjeta:</string>
+    <string name="tarjetaDebito">Debito</string>
+    <string name="tarjetaCredito">Credito</string>
+    <string name="numeroTarjeta">Numero de tarjeta</string>
+    <string name="CCV">CCV</string>
+    <string name="fechaVenc">Fecha de vencimiento:</string>
+    <string name="cbu">CBU</string>
+    <string name="alias">Alias CBU</string>
+    <string name="cargaInicial">Realizar carga inicial?</string>
+    <string name="cargaInicial2">Crédito inicial: </string>
+    <string name="terminosYCondiciones">Acepto los términos y condiciones </string>
+    <string name="botonRegistro">Registrar</string>
+    <string name="NuevoPlato"> Nuevo Plato </string>
+    <string name="TituloPlato"> Titulo </string>
+    <string name="DescripcionPlato"> Descripcion </string>
+    <string name="CaloriasPlato"> Calorias </string>
+    <string name="PrecioPlato"> Precio </string>
+    <string name="GuardarPlato"> GUARDAR </string>
+    <string name="Registro"> Registro </string>
+    <string name="ListaPlatos"> Lista de Platos </string>
+    <string name="NuevoPedido"> Nuevo Pedido </string>
+    <string name="direccion"> Dirección </string>
+    <string name="tipoPedido"> Tipo de pedido: </string>
+    <string name="tipoEnvio"> Envío </string>
+    <string name="tipoTakeAway"> Takeaway </string>
+    <string name="infoPedido"> Danos tus datos para hacer el pedido! </string>
+    <string name="agregarPlato"> Agregar plato </string>
+    <string name="listaPlatos"> Lista de platos: </string>
+    <string name="confirmarPedido"> Confirmar pedido </string>
+    <string name="pedidos"> Platos seleccionados </string>
+    <string name="BotonUbicacion">Confirmar ubicacion</string>
+    <string name="google_maps_key">AIzaSyD6unyo5s6jp67_9_E6Y6pod60IqJW4mws</string>
+
 
 </resources>

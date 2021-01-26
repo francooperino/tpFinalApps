@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VentaYa">
+        <activity android:name=".UI.PantallaPublicaciones"/>
+        <activity android:name=".UI.PantallaRegistro"/>
+        <activity android:name=".UI.PantallaIniciarSesion"/>
         <activity android:name=".UI.PantallaInicio">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
