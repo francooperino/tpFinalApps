@@ -10,6 +10,17 @@
     <string name="app_name">ventaYa</string>
 
 
+
+    <string name="categoria_electronica">Electrónica</string>
+    <string name="categoria_musica">Música</string>
+    <string name="categoria_indumentaria">Indumentaria</string>
+    <string name="categoria_muebles">Muebles</string>
+    <string name="categoria_servicios">Servicios</string>
+    <string name="categoria_vehiculos">Vehículos</string>
+    <string name="categoria_deportes">Deportes</string>
+    <string name="categoria_herramientas">Herramientas</string>
+
+
     --copiadas de sendmeal
     <string name="bienv">Bienvenido</string>
     <string name="bienv2">Registrate para empezar a comprar o vender!</string>

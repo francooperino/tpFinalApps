@@ -106,7 +106,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
                 ft.replace(R.id.content, new ProfileFragment()).commit();
                 break;
             case R.id.nav_event:
-                ft.replace(R.id.content, new EventFragment()).commit();
+                ft.replace(R.id.content, new PublicarFragment()).commit();
                 break;
             case R.id.nav_notification:
                 ft.replace(R.id.content, new NotificationFragment()).commit();
