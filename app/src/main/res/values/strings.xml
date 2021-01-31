@@ -71,5 +71,15 @@
     <string name="colorVehiculo">Color</string>
     <string name="botonSiguiente">Siguiente</string>
     <string name="campoTelefono">Telefono</string>
+    <string name="campoTipoIndumentaria">Tipo de indumentaria (Ej: calzado,remera,etc)</string>
+    <string name="campoTituloPublicacion">Titulo para la publicacion</string>
+    <string name="descripcionArticulo">Ingrese una descripcion del producto</string>
+    <string name="condicion">Condicion</string>
+    <string name="tipoNuevo">Nuevo</string>
+    <string name="tipoUsado">Usado</string>
+    <string name="campoTipoDeporte">Tipo de deporte (Ej: futbol,basket,tenis,etc)</string>
+    <string name="campoProducto">Producto</string>
+    <string name="campoTipoElectronica">Tipo de producto (Ej: telefono,tablet,laptop,etc)</string>
+    <string name="campoModelo">Modelo</string>
 
 </resources>

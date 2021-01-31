@@ -12,7 +12,14 @@
         <activity android:name=".UI.PantallaPublicaciones"/>
         <activity android:name=".UI.PantallaRegistro"/>
         <activity android:name=".UI.PantallaIniciarSesion"/>
-        <activity android:name=".UI.PublicarVehiculos"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarVehiculos"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarIndumentaria"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarDeportes"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarElectronica"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarHerramientas"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarMuebles"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarMusica"/>
+        <activity android:name=".NuevasPublicacionesUI.PublicarServicios"/>
         <activity android:name=".UI.PantallaInicio">
 
             <intent-filter>

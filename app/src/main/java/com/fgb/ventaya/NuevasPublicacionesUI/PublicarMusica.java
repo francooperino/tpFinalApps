@@ -1,20 +1,13 @@
-package com.fgb.ventaya.UI;
-
-import android.content.Intent;
+package com.fgb.ventaya.NuevasPublicacionesUI;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.fgb.ventaya.R;
 
-public class PublicarVehiculos extends AppCompatActivity {
+public class PublicarMusica extends AppCompatActivity {
 
     Toolbar myToolbar;
 
@@ -22,8 +15,8 @@ public class PublicarVehiculos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pantalla_publicar_vehiculos);
-        myToolbar = findViewById(R.id.toolbarVehiculo);
+        setContentView(R.layout.pantalla_publicar_musica);
+        myToolbar = findViewById(R.id.toolbarMusica);
 
 
         setSupportActionBar(myToolbar);
