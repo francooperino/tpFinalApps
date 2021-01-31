@@ -12,6 +12,7 @@
         <activity android:name=".UI.PantallaPublicaciones"/>
         <activity android:name=".UI.PantallaRegistro"/>
         <activity android:name=".UI.PantallaIniciarSesion"/>
+        <activity android:name=".UI.PublicarVehiculos"/>
         <activity android:name=".UI.PantallaInicio">
 
             <intent-filter>

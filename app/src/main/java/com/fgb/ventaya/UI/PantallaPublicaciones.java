@@ -1,11 +1,14 @@
 package com.fgb.ventaya.UI;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     Toolbar myToolbar;
     ActionBarDrawerToggle toggle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,8 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
 
         navigationView.setNavigationItemSelectedListener(this);
+
+
 
 
     }

@@ -63,5 +63,13 @@
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Close Drawer</string>
     <string name="search_title">Buscar</string>
+    <string name="Datos_vehiculo">Ingrese los siguientes datos</string>
+    <string name="campoMarca">Marca</string>
+    <string name="campoAnio">Año</string>
+    <string name="CantKm">Cantidad de Kilometros</string>
+    <string name="tipoCombustible">Tipo de Combustible</string>
+    <string name="colorVehiculo">Color</string>
+    <string name="botonSiguiente">Siguiente</string>
+    <string name="campoTelefono">Telefono</string>
 
 </resources>
