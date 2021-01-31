@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradiente"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
+
+<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMainActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

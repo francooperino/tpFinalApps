@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradiente"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarVehiculo"
@@ -20,7 +21,7 @@
         android:background="@null"
         android:theme="?attr/actionBarTheme"
         app:titleEnabled="false"
-        android:fitsSystemWindows="false"
+
         />
 
 
