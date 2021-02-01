@@ -81,5 +81,7 @@
     <string name="campoProducto">Producto</string>
     <string name="campoTipoElectronica">Tipo de producto (Ej: telefono,tablet,laptop,etc)</string>
     <string name="campoModelo">Modelo</string>
+    <string name="SubirFotos">Subir Fotos</string>
+    <string name="portada">Imagen de Portada</string>
 
 </resources>
