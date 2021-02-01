@@ -356,6 +356,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 int m =datos.size();
                 for(int i=0;i<m;i++){
                     UUID ID = UUID.randomUUID();
+                    Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
                     subirImagen(ID,datos.get(i));
                 }
 

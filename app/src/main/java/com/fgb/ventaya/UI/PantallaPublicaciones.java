@@ -1,14 +1,10 @@
 package com.fgb.ventaya.UI;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -18,7 +14,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -109,16 +104,22 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
                 ft.replace(R.id.content, new HomeFragment()).commit();
                 break;
             case R.id.nav_profile:
-                ft.replace(R.id.content, new ProfileFragment()).commit();
+                ft.replace(R.id.content, new PerfilFragment()).commit();
                 break;
-            case R.id.nav_event:
+            case R.id.nav_publicar:
                 ft.replace(R.id.content, new PublicarFragment()).commit();
                 break;
-            case R.id.nav_notification:
-                ft.replace(R.id.content, new NotificationFragment()).commit();
+            case R.id.nav_mis_publicaciones:
+                ft.replace(R.id.content, new MisPublicacionesFragment()).commit();
                 break;
-            case R.id.nav_contact:
-                ft.replace(R.id.content, new ContactFragment()).commit();
+            case R.id.nav_categorias:
+                ft.replace(R.id.content, new CategoriasFragment()).commit();
+                break;
+            case R.id.nav_favoritos:
+                ft.replace(R.id.content, new FavoritosFragment()).commit();
+                break;
+            case R.id.nav_closeSesion:
+                ft.replace(R.id.content, new CerrarSesionFragment()).commit();
                 break;
         }
         setTitle(item.getTitle());
