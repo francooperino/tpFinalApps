@@ -5,6 +5,11 @@ plugins {
 }
 
 android {
+
+    lintOptions {
+        abortOnError false
+    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -51,4 +56,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     // Declare the dependency for the Firebase Authentication library
     implementation 'com.google.firebase:firebase-auth'
+
+
+    //logueo firebase
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+
+    // Required only if Facebook login support is required
+    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
+    //implementation 'com.facebook.android:facebook-android-sdk:4.x'
+
+    // Required only if Twitter login support is required
+    // Find the latest Twitter SDK releases here: https://goo.gl/E5wZvQ
+    //implementation 'com.twitter.sdk.android:twitter-core:3.x'
+
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+
 }

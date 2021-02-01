@@ -8,10 +8,24 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.fgb.ventaya.NuevasPublicacionesUI.PantallaCargarImagenes;
 import com.fgb.ventaya.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 public class PantallaRegistro extends AppCompatActivity {
     Toolbar myToolbar;
     private CheckBox checkTerminos;
@@ -22,7 +36,14 @@ public class PantallaRegistro extends AppCompatActivity {
     private EditText correoElectronico;
     private EditText clave;
     private EditText clave2;
+    private String name = "";
+    private String mail = "";
+    private String contraseña = "";
+    private String apellidoo = "";
+    private String user;
 
+    private FirebaseAuth mAuth;
+    private DatabaseReference db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +58,8 @@ public class PantallaRegistro extends AppCompatActivity {
         nombre = findViewById(R.id.textNombre);
         apellido = findViewById(R.id.textApellido);
         username = findViewById(R.id.textUsername);
-
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
         setSupportActionBar(myToolbar);
         //para mostrar icono flecha atrás
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,10 +81,53 @@ public class PantallaRegistro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validarCampos((EditText) findViewById(R.id.textNombre));
+                name = nombre.getText().toString();
+                mail = correoElectronico.getText().toString();
+                contraseña = clave.getText().toString();
+                apellidoo = apellido.getText().toString();
+                user= username.getText().toString();
+                registrarUsuario();
             }
         });
 
     }
+
+    private void registrarUsuario() {
+        mAuth.createUserWithEmailAndPassword(mail,contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+
+                    Map<String, Object> map= new HashMap<>();
+                    map.put("name",name);
+                    map.put("mail",mail);
+                    map.put("contraseña",contraseña);
+                    map.put("apellido",apellidoo);
+                    map.put("user",user);
+
+                    String id= mAuth.getCurrentUser().getUid();
+                        db.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task2) {
+                                if(task2.isSuccessful()){
+                                    Toast.makeText(PantallaRegistro.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(PantallaRegistro.this, "Nose pudo crear el usuario",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                }
+                else{
+                    Toast.makeText(PantallaRegistro.this, "Nose pudo crear el usuario",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
+
     //para aplicar funcionalidad flecha atrás
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
