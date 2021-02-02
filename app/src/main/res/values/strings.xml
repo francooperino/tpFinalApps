@@ -83,5 +83,6 @@
     <string name="campoModelo">Modelo</string>
     <string name="SubirFotos">Subir Fotos</string>
     <string name="portada">Imagen de Portada</string>
+    <string name="FotoPerfil">Subir Foto de Perfil</string>
 
 </resources>

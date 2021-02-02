@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,6 +66,9 @@ public class PantallaRegistro extends AppCompatActivity {
     private ImageButton buttonPerfil;
     private ImageView imagePerfil;
     byte[] datas;
+    private TextView fotoText;
+    private int valor=0;
+
 
     private void lanzarCamara() {
         Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -79,27 +84,25 @@ public class PantallaRegistro extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMARA_REQUEST  && resultCode == RESULT_OK) {
+            valor=1;
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             float proporcion = 600 / (float) imageBitmap.getWidth();
             imageBitmap = Bitmap.createScaledBitmap(imageBitmap,600,(int) (imageBitmap.getHeight() * proporcion),false);
             imagePerfil.setImageBitmap(imageBitmap);
-            buttonPerfil.setVisibility(View.GONE);
-            imagePerfil.setVisibility(View.VISIBLE);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            datas = baos.toByteArray(); // Imagen en arreglo de bytes
+            datas = baos.toByteArray();
 
         }
         if(requestCode == GALERIA_REQUEST && resultCode == RESULT_OK){
             imageUri = data.getData();
+            valor=2;
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 float proporcion = 600 / (float) bitmap.getWidth();
                 bitmap = Bitmap.createScaledBitmap(bitmap,600,(int) (bitmap.getHeight() * proporcion),false);
                 imagePerfil.setImageBitmap(bitmap);
-                buttonPerfil.setVisibility(View.GONE);
-                imagePerfil.setVisibility(View.VISIBLE);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 datas = baos.toByteArray(); // Imagen en arreglo de bytes
@@ -127,7 +130,8 @@ public class PantallaRegistro extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
         setSupportActionBar(myToolbar);
-        buttonPerfil = findViewById(R.id.imageButtonPerfil);
+        //buttonPerfil = findViewById(R.id.imageButtonPerfil);
+        fotoText = findViewById(R.id.textFotoPerfil);
         imagePerfil = findViewById(R.id.imageViewPerfil);
         //para mostrar icono flecha atrás
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -145,7 +149,7 @@ public class PantallaRegistro extends AppCompatActivity {
             }
         });
 
-        buttonPerfil.setOnClickListener(new View.OnClickListener(){
+        fotoText.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -238,6 +242,22 @@ public class PantallaRegistro extends AppCompatActivity {
                                     Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(PantallaRegistro.this, PantallaPublicaciones.class);
                                     startActivity(i);
+                                    /*if(valor==1){
+                                        i.putExtra("codigo", 1);
+                                        startActivity(i);
+                                    }
+                                    else{
+                                        if(valor==2){
+                                            i.putExtras(b);
+                                            i.putExtra("codigo", 2);
+                                            startActivity(i);
+                                        }
+                                        else{
+                                           // i.putExtra("codigo", 0);
+                                            startActivity(i);
+                                        }
+                                    }*/
+
                                 }
                                 else {
                                     Toast.makeText(PantallaRegistro.this, "No se pudo crear el usuario",Toast.LENGTH_LONG).show();

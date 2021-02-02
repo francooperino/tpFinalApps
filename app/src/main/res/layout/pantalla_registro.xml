@@ -41,31 +41,26 @@
                 android:textColor="@color/blanco_campos_medium"
                 android:textSize="16sp" />
 
-            <ImageButton
-                android:id="@+id/imageButtonPerfil"
-                android:background="@drawable/bordes_redondos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:cropToPadding="false"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/profile" />
-
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageViewPerfil"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:civ_border_color="#FF000000"
+                android:src="@drawable/profile"
                 app:civ_border_width="2dp" />
 
+
+            <TextView
+                android:id="@+id/textFotoPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/FotoPerfil"
+                android:textColor="@color/dark_blue"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/textNombre"

@@ -1,10 +1,14 @@
 package com.fgb.ventaya.UI;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -26,6 +30,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     NavigationView navigationView;
     Toolbar myToolbar;
     ActionBarDrawerToggle toggle;
+    ImageView ip;
 
 
     @Override
@@ -49,8 +54,23 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
 
         navigationView.setNavigationItemSelectedListener(this);
+        ip = (ImageView) navigationView.getMenu().findItem(R.id.imageViewPerfil);
 
 
+        /*//if(getIntent().getExtras().getInt("codigo") != 0) {
+            //Bundle parametros= this.getIntent().getExtras();
+            //Bitmap bitmap = BitmapFactory.decodeByteArray(parametros.getByteArray("imagen"),0,parametros.getByteArray("imagen").length);
+            //ip.setImageBitmap(bitmap);
+
+            //Intent intent = getIntent();
+            //Bitmap bitmap = (Bitmap) intent.getParcelableExtra("fotoPerfil");
+            //ip.setImageBitmap(bitmap);
+        Bundle parametros= this.getIntent().getExtras();
+        Bitmap imageB = (Bitmap) parametros.get("data");
+        float proporcion = 600 / (float) imageB.getWidth();
+        imageB = Bitmap.createScaledBitmap(imageB,600,(int) (imageB.getHeight() * proporcion),false);
+        ip.setImageBitmap(imageB);
+        //}*/
 
 
     }
