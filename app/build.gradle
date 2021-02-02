@@ -71,5 +71,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+
+    //para imagen circular
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

@@ -30,7 +30,6 @@ public class PantallaIniciarSesion extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     Toolbar myToolbar;
     Button btnIniciarSesion;
-    Button google;
     private FirebaseAuth mAuth;
 
     @Override
@@ -40,7 +39,6 @@ public class PantallaIniciarSesion extends AppCompatActivity {
         //inicializar elementos
         myToolbar = findViewById(R.id.toolbarIniciarSesion);
         btnIniciarSesion = findViewById(R.id.buttonIniciarSesion);
-        google = findViewById(R.id.button9);
         mAuth = FirebaseAuth.getInstance();
         setSupportActionBar(myToolbar);
 
@@ -57,8 +55,6 @@ public class PantallaIniciarSesion extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
 
 
     }

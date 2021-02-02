@@ -31,16 +31,40 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center_horizontal"
                 android:text="@string/bienv2"
                 android:textColor="@color/blanco_campos_medium"
                 android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonPerfil"
+                android:background="@drawable/bordes_redondos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:cropToPadding="false"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/profile" />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewPerfil"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
 
 
             <EditText
