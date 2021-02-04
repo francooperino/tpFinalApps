@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class HomeFragment extends Fragment {
 
     RecyclerView recycler;
-    RecyclerAdapterPublicaciones recyclerAdapterPublicaciones;
+    RecyclerAdapterPublicaciones  recyclerAdapterPublicaciones;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Publicacion"),Publicacion.class)
                         .build();
         recyclerAdapterPublicaciones = new RecyclerAdapterPublicaciones(options);
+        options.getSnapshots();
         recycler.setAdapter(recyclerAdapterPublicaciones);
 
         // Inflate the layout for this fragment

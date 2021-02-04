@@ -95,6 +95,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
             new FirebaseRecyclerOptions.Builder<Publicacion>()
             .setQuery(FirebaseDatabase.getInstance().getReference().child("Publicaciones"),Publicacion.class)
             .build();
+
         recyclerAdapterPublicaciones = new RecyclerAdapterPublicaciones(options);
         recycler.setAdapter(recyclerAdapterPublicaciones);*/
     }
