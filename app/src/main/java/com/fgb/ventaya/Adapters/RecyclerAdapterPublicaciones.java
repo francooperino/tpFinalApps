@@ -1,0 +1,53 @@
+package com.fgb.ventaya.Adapters;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.fgb.ventaya.Entity.Publicacion;
+import com.fgb.ventaya.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
+public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Publicacion,RecyclerAdapterPublicaciones.viewHolder> {
+
+    public RecyclerAdapterPublicaciones(@NonNull FirebaseRecyclerOptions<Publicacion> options) {
+        super(options);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull viewHolder viewHolder, int i, @NonNull Publicacion publicacion) {
+        viewHolder.titulo.setText(publicacion.getTitle());
+        viewHolder.descripcion.setText(publicacion.getDescription());
+        viewHolder.precio.setText(publicacion.getPrecio());
+        Glide.with(viewHolder.imgPublicacion.getContext()).load(publicacion.getImage()).into(viewHolder.imgPublicacion);
+
+    }
+
+    @NonNull
+    @Override
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_recycler_publicaciones,parent,false);
+        return new viewHolder(view);
+    }
+
+    class viewHolder extends RecyclerView.ViewHolder{
+        ImageView imgPublicacion;
+        TextView titulo,descripcion,precio;
+        public viewHolder(@NonNull View itemView) {
+            super(itemView);
+            imgPublicacion =(ImageView) itemView.findViewById(R.id.imagePublication);
+            titulo =(TextView) itemView.findViewById(R.id.tituloPublicacion);
+            descripcion =(TextView) itemView.findViewById(R.id.descripcionPublicacion);
+            precio =(TextView) itemView.findViewById(R.id.precioPublicacion);
+
+        }
+    }
+
+}
