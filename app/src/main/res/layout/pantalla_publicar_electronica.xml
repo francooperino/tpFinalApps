@@ -101,6 +101,18 @@
                 android:background="@drawable/edittext_background"/>
 
             <EditText
+                android:id="@+id/modeloPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoPrecio"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"/>
+
+            <EditText
                 android:id="@+id/textDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"

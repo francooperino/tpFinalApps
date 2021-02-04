@@ -23,9 +23,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.fgb.ventaya.R;
+import com.fgb.ventaya.UI.PantallaPublicaciones;
+import com.fgb.ventaya.UI.PantallaRegistro;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +39,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class PantallaCargarImagenes extends AppCompatActivity {
@@ -57,6 +65,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     ImageButton button3;
     Button publicar;
     Toolbar myToolbar;
+    private DatabaseReference db;
+
     private void lanzarCamara() {
         Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camaraIntent, CAMARA_REQUEST);
@@ -191,7 +201,10 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // URL de descarga del archivo
                     downloadUri = task.getResult();
+                    //Toast.makeText(PantallaCargarImagenes.this, downloadUri.toString(),Toast.LENGTH_LONG).show();
+                    Log.d("DEBUG", downloadUri.toString());
                     result[0] =true;
+                    guardarPublicacion();
                 }
                 else{
                     Toast.makeText(PantallaCargarImagenes.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
@@ -199,6 +212,32 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             }
         });
         return result[0];
+    }
+
+    private void guardarPublicacion() {
+        UUID id = UUID.randomUUID();
+        Map<String, Object> map= new HashMap<>();
+        map.put("title", getIntent().getExtras().getString("titulo"));
+        map.put("tipo",getIntent().getExtras().getString("tipo"));
+        map.put("telefono",getIntent().getExtras().getString("telefono"));
+        map.put("marca",getIntent().getExtras().getString("marca"));
+        map.put("modelo",getIntent().getExtras().getString("modelo"));
+        map.put("precio",getIntent().getExtras().getString("precio"));
+        map.put("description",getIntent().getExtras().getString("comentario"));
+        map.put("image",downloadUri.toString());
+
+        db.child("Publicacion").child(id.toString()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task2) {
+                if (task2.isSuccessful()) {
+                    Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
+
+
+                } else {
+                    Toast.makeText(PantallaCargarImagenes.this, "No se pudo crear el usuario", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -213,8 +252,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         button3 = findViewById(R.id.imageButton3);
         publicar = findViewById(R.id.button);
         myToolbar = findViewById(R.id.toolbarImagenes);
-
         datos = new ArrayList<byte[]>();
+        db = FirebaseDatabase.getInstance().getReference();
         //clickListener(button1);
         //clickListener(button2);
         //clickListener(button3);
@@ -356,8 +395,9 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 int m =datos.size();
                 for(int i=0;i<m;i++){
                     UUID ID = UUID.randomUUID();
-                    Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
                     subirImagen(ID,datos.get(i));
+
                 }
 
 

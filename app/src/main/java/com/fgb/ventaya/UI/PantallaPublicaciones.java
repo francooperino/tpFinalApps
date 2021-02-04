@@ -47,8 +47,8 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     Toolbar myToolbar;
     ActionBarDrawerToggle toggle;
     ImageView ip;
-    RecyclerView recycler;
-    RecyclerAdapterPublicaciones recyclerAdapterPublicaciones;
+    //RecyclerView recycler;
+    //RecyclerAdapterPublicaciones recyclerAdapterPublicaciones;
 
 
     @Override
@@ -60,8 +60,8 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         myToolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
-        recycler=(RecyclerView) findViewById(R.id.recyclerPublicaciones);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        //recycler=(RecyclerView) findViewById(R.id.recyclerPublicaciones);
+        //recycler.setLayoutManager(new LinearLayoutManager(this));
 
         getSupportFragmentManager().beginTransaction().add(R.id.content, new HomeFragment()).commit();
         setTitle("Home");
@@ -91,15 +91,15 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         imageB = Bitmap.createScaledBitmap(imageB,600,(int) (imageB.getHeight() * proporcion),false);
         ip.setImageBitmap(imageB);
         //}*/
-        FirebaseRecyclerOptions<Publicacion> options =
+        /*FirebaseRecyclerOptions<Publicacion> options =
             new FirebaseRecyclerOptions.Builder<Publicacion>()
             .setQuery(FirebaseDatabase.getInstance().getReference().child("Publicaciones"),Publicacion.class)
             .build();
         recyclerAdapterPublicaciones = new RecyclerAdapterPublicaciones(options);
-        recycler.setAdapter(recyclerAdapterPublicaciones);
+        recycler.setAdapter(recyclerAdapterPublicaciones);*/
     }
 
-    @Override
+    /*@Override
     protected  void onStart() {
         super.onStart();
         recyclerAdapterPublicaciones.startListening();
@@ -108,7 +108,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     protected  void onStop() {
         super.onStop();
         recyclerAdapterPublicaciones.stopListening();
-    }
+    }*/
 
 
     @Override //agrega la funcionalidad de búsqueda en la toolbar!
