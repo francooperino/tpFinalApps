@@ -21,6 +21,8 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
         super(options);
     }
 
+
+
     @Override
     protected void onBindViewHolder(@NonNull viewHolder viewHolder, int i, @NonNull Publicacion publicacion) {
         viewHolder.titulo.setText(publicacion.getTitle());
