@@ -80,8 +80,11 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
         navigationView.setNavigationItemSelectedListener(this);
         ip = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageViewPerfil);
-        String s= getIntent().getExtras().getString("image");
-        traerImagenPerfil(s);
+        if(getIntent().getExtras().getString("pantalla").equals("registro")){
+            String s= getIntent().getExtras().getString("image");
+            traerImagenPerfil(s);
+        }
+
 
     }
 

@@ -86,4 +86,7 @@
     <string name="FotoPerfil">Subir Foto de Perfil</string>
     <string name="campoPrecio">Precio</string>
 
+    //dps quitar
+    <string name="twitterUsername">\@joeytribbiani</string>
+
 </resources>

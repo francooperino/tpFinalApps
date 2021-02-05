@@ -290,6 +290,7 @@ public class PantallaRegistro extends AppCompatActivity {
                                     //subirImagen(id);
                                     Intent i = new Intent(PantallaRegistro.this, PantallaPublicaciones.class);
                                     i.putExtra("image",downloadUri.toString());
+                                    i.putExtra("pantalla", "registro");
                                     startActivity(i);
 
                                 }

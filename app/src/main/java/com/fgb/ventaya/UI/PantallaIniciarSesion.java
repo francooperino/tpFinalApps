@@ -52,6 +52,7 @@ public class PantallaIniciarSesion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(PantallaIniciarSesion.this, PantallaPublicaciones.class);
+                i.putExtra("pantalla", "iniciosesion");
                 startActivity(i);
             }
         });
