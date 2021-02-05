@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.ColorSpace;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,14 +30,19 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.fgb.ventaya.Adapters.RecyclerAdapterPublicaciones;
 import com.fgb.ventaya.Entity.Publicacion;
 import com.fgb.ventaya.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 
@@ -47,8 +53,8 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     Toolbar myToolbar;
     ActionBarDrawerToggle toggle;
     ImageView ip;
-    //RecyclerView recycler;
-    //RecyclerAdapterPublicaciones recyclerAdapterPublicaciones;
+    FirebaseDatabase storage;
+
 
 
     @Override
@@ -60,8 +66,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         myToolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
-        //recycler=(RecyclerView) findViewById(R.id.recyclerPublicaciones);
-        //recycler.setLayoutManager(new LinearLayoutManager(this));
+
 
         getSupportFragmentManager().beginTransaction().add(R.id.content, new HomeFragment()).commit();
         setTitle("Home");
@@ -74,42 +79,11 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
 
         navigationView.setNavigationItemSelectedListener(this);
-        ip = (ImageView) navigationView.getMenu().findItem(R.id.imageViewPerfil);
+        ip = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageViewPerfil);
+        String s= getIntent().getExtras().getString("image");
+        traerImagenPerfil(s);
 
-
-        /*//if(getIntent().getExtras().getInt("codigo") != 0) {
-            //Bundle parametros= this.getIntent().getExtras();
-            //Bitmap bitmap = BitmapFactory.decodeByteArray(parametros.getByteArray("imagen"),0,parametros.getByteArray("imagen").length);
-            //ip.setImageBitmap(bitmap);
-
-            //Intent intent = getIntent();
-            //Bitmap bitmap = (Bitmap) intent.getParcelableExtra("fotoPerfil");
-            //ip.setImageBitmap(bitmap);
-        Bundle parametros= this.getIntent().getExtras();
-        Bitmap imageB = (Bitmap) parametros.get("data");
-        float proporcion = 600 / (float) imageB.getWidth();
-        imageB = Bitmap.createScaledBitmap(imageB,600,(int) (imageB.getHeight() * proporcion),false);
-        ip.setImageBitmap(imageB);
-        //}*/
-        /*FirebaseRecyclerOptions<Publicacion> options =
-            new FirebaseRecyclerOptions.Builder<Publicacion>()
-            .setQuery(FirebaseDatabase.getInstance().getReference().child("Publicaciones"),Publicacion.class)
-            .build();
-
-        recyclerAdapterPublicaciones = new RecyclerAdapterPublicaciones(options);
-        recycler.setAdapter(recyclerAdapterPublicaciones);*/
     }
-
-    /*@Override
-    protected  void onStart() {
-        super.onStart();
-        recyclerAdapterPublicaciones.startListening();
-    }
-    @Override
-    protected  void onStop() {
-        super.onStop();
-        recyclerAdapterPublicaciones.stopListening();
-    }*/
 
 
     @Override //agrega la funcionalidad de búsqueda en la toolbar!
@@ -132,6 +106,10 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setQueryHint("¿Qué querés buscar?");
         return true;
+    }
+
+    private void traerImagenPerfil(String number) {
+        Glide.with(ip.getContext()).load(number).into(ip);
     }
 
 

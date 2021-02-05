@@ -28,18 +28,23 @@ import androidx.core.app.ActivityCompat;
 
 import com.fgb.ventaya.NuevasPublicacionesUI.PantallaCargarImagenes;
 import com.fgb.ventaya.R;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class PantallaRegistro extends AppCompatActivity {
     Toolbar myToolbar;
@@ -111,6 +116,45 @@ public class PantallaRegistro extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    private Boolean subirImagen(String id) {
+        final Boolean[] result = {false};
+        // Creamos una referencia a nuestro Storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        // Creamos una referencia a 'images/plato_id.jpg'
+        StorageReference perfilImagesRef = storageRef.child("fotoPerfil/"+id+".jpg");
+
+        UploadTask uploadTask = perfilImagesRef.putBytes(datas);
+
+        // Registramos un listener para saber el resultado de la operación
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(PantallaRegistro.this, "error",Toast.LENGTH_LONG).show();
+                    throw task.getException();
+                }
+
+                // Continuamos con la tarea para obtener la URL
+                return perfilImagesRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+
+                if (task.isSuccessful()) {
+                    // URL de descarga del archivo
+                    downloadUri = task.getResult();
+                    result[0] =true;
+                    registrarUsuario();
+                }
+                else{
+                    Toast.makeText(PantallaRegistro.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        return result[0];
     }
 
     @Override
@@ -198,7 +242,8 @@ public class PantallaRegistro extends AppCompatActivity {
                 apellidoo = apellido.getText().toString();
                 user= username.getText().toString();
                 if(!validarCampos((EditText) findViewById(R.id.textNombre))){
-                    registrarUsuario();
+                    UUID id = UUID.randomUUID();
+                    subirImagen(id.toString());
                 }
             }
         });
@@ -227,36 +272,25 @@ public class PantallaRegistro extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    String id= mAuth.getCurrentUser().getUid();
+                    //subirImagen(id);
                     Map<String, Object> map= new HashMap<>();
                     map.put("name",name);
                     map.put("mail",mail);
                     map.put("contraseña",contraseña);
                     map.put("apellido",apellidoo);
                     map.put("user",user);
+                    map.put("image",downloadUri.toString());
 
-                    String id= mAuth.getCurrentUser().getUid();
                         db.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task2) {
                                 if(task2.isSuccessful()){
                                     Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
+                                    //subirImagen(id);
                                     Intent i = new Intent(PantallaRegistro.this, PantallaPublicaciones.class);
+                                    i.putExtra("image",downloadUri.toString());
                                     startActivity(i);
-                                    /*if(valor==1){
-                                        i.putExtra("codigo", 1);
-                                        startActivity(i);
-                                    }
-                                    else{
-                                        if(valor==2){
-                                            i.putExtras(b);
-                                            i.putExtra("codigo", 2);
-                                            startActivity(i);
-                                        }
-                                        else{
-                                           // i.putExtra("codigo", 0);
-                                            startActivity(i);
-                                        }
-                                    }*/
 
                                 }
                                 else {
