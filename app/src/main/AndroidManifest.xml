@@ -15,20 +15,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeVentaYa">
-        <activity android:name=".UI.PantallaPublicaciones"/>
-        <activity android:name=".UI.PantallaRegistro"/>
-        <activity android:name=".UI.PantallaIniciarSesion"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarVehiculos"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarIndumentaria"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarDeportes"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarElectronica"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarHerramientas"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarMuebles"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarMusica"/>
-        <activity android:name=".NuevasPublicacionesUI.PublicarServicios"/>
-        <activity android:name=".NuevasPublicacionesUI.PantallaCargarImagenes"/>
-        <activity android:name=".UI.PantallaInicio" android:theme="@style/SplashTheme">
-
+        <activity android:name=".NuevasPublicacionesUI.PantallaPublicacion" />
+        <activity android:name=".UI.PantallaPublicaciones" />
+        <activity android:name=".UI.PantallaRegistro" />
+        <activity android:name=".UI.PantallaIniciarSesion" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarVehiculos" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarIndumentaria" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarDeportes" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarElectronica" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarHerramientas" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarMuebles" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarMusica" />
+        <activity android:name=".NuevasPublicacionesUI.PublicarServicios" />
+        <activity android:name=".NuevasPublicacionesUI.PantallaCargarImagenes" />
+        <activity
+            android:name=".UI.PantallaInicio"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

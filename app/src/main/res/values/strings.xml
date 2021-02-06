@@ -10,7 +10,6 @@
     <string name="app_name">ventaYa</string>
 
 
-
     <string name="categoria_electronica">Electrónica</string>
     <string name="categoria_musica">Música</string>
     <string name="categoria_indumentaria">Indumentaria</string>
@@ -85,6 +84,7 @@
     <string name="portada">Imagen de Portada</string>
     <string name="FotoPerfil">Subir Foto de Perfil</string>
     <string name="campoPrecio">Precio</string>
+    <string name="publicacion">Publicacion</string>
 
     //dps quitar
     <string name="twitterUsername">\@joeytribbiani</string>

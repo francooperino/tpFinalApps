@@ -1,24 +1,31 @@
 package com.fgb.ventaya.Adapters;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fgb.ventaya.Entity.Publicacion;
+import com.fgb.ventaya.NuevasPublicacionesUI.PantallaPublicacion;
 import com.fgb.ventaya.R;
+import com.fgb.ventaya.UI.HomeFragment;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Publicacion,RecyclerAdapterPublicaciones.viewHolder> {
 
     public RecyclerAdapterPublicaciones(@NonNull FirebaseRecyclerOptions<Publicacion> options) {
+
         super(options);
+
     }
 
 
@@ -29,6 +36,17 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
         viewHolder.descripcion.setText(publicacion.getDescription());
         viewHolder.precio.setText(publicacion.getPrecio());
         Glide.with(viewHolder.imgPublicacion.getContext()).load(publicacion.getImage()).into(viewHolder.imgPublicacion);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Click","Se hizo click");
+                String id = getRef(i).getKey();
+
+                Intent i = new Intent(v.getContext(), PantallaPublicacion.class);
+                i.putExtra("Titulo",publicacion.getTitle());
+                v.getContext().startActivity(i);
+            }
+        });
 
     }
 
@@ -36,6 +54,7 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_recycler_publicaciones,parent,false);
+
         return new viewHolder(view);
     }
 
