@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <item android:drawable="@color/colorPrimary"/>
+    <item android:drawable="@color/colorPrimary2"/>
     <item>
-        <bitmap android:src="@drawable/iconoinicio"
+        <bitmap android:src="@drawable/icono"
             android:gravity="center" />
     </item>
 
