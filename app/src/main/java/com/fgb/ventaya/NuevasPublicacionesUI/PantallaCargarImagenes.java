@@ -22,14 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.fgb.ventaya.Entity.Publicacion;
 import com.fgb.ventaya.R;
-import com.fgb.ventaya.UI.PantallaPublicaciones;
-import com.fgb.ventaya.UI.PantallaRegistro;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +39,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -238,7 +238,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         map.put("precio",getIntent().getExtras().getString("precio"));
         map.put("description",getIntent().getExtras().getString("comentario"));
         if (downloadUri!=null){
-            map.put("image1",downloadUri.toString());
+            map.put("image",downloadUri.toString());
         }
         if (downloadUri2!=null){
             map.put("image2",downloadUri2.toString());
@@ -253,6 +253,34 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task2) {
                 if (task2.isSuccessful()) {
                     Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    String idUsuario = user.getUid().toString();
+
+
+                    //agrego
+
+                    List<String> publicaciones = new ArrayList<>();
+                    publicaciones.add(id.toString());
+                    db.child("Users").child(idUsuario).child("publicaciones").push().setValue(id.toString());
+
+                    //
+
+                   /* db.child("Users").child(idUsuario).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+
+                                lista.add(id);
+                                snapshot.child("publicaciones").
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });*/
 
 
                 } else {

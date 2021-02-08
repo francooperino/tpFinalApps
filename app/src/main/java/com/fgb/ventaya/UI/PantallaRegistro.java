@@ -40,7 +40,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -58,6 +60,7 @@ public class PantallaRegistro extends AppCompatActivity {
     private String mail = "";
     private String contraseña = "";
     private String apellidoo = "";
+    List<String> publicaciones;
     private String user;
     private Boolean tipo= false;
     static final int CAMARA_REQUEST = 1;
@@ -178,6 +181,8 @@ public class PantallaRegistro extends AppCompatActivity {
         fotoText = findViewById(R.id.textFotoPerfil);
         imagePerfil = findViewById(R.id.imageViewPerfil);
         progressBar = findViewById(R.id.progressBar1);
+        publicaciones =  new ArrayList<String>();
+
         //para mostrar icono flecha atrás
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -292,6 +297,7 @@ public class PantallaRegistro extends AppCompatActivity {
                     map.put("apellido",apellidoo);
                     map.put("user",user);
                     map.put("image",downloadUri.toString());
+                    map.put("publicaciones",publicaciones);
 
                         db.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -308,6 +314,8 @@ public class PantallaRegistro extends AppCompatActivity {
                                 }
                                 else {
                                     Toast.makeText(PantallaRegistro.this, "No se pudo crear el usuario",Toast.LENGTH_LONG).show();
+                                    registrar.setVisibility(View.VISIBLE);
+
                                 }
                             }
                         });
@@ -316,6 +324,7 @@ public class PantallaRegistro extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
 
                     Toast.makeText(PantallaRegistro.this, "No se pudo crear el usuario",Toast.LENGTH_LONG).show();
+                    registrar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -360,6 +369,11 @@ public class PantallaRegistro extends AppCompatActivity {
         }
         if (clave2.getText().toString().isEmpty()) {
             clave2.setError("Por favor elija una contraseña");
+            validar=true;
+        }
+
+        if (clave.getText().toString().length()<6) {
+            clave.setError("La contraseña debe tener al menos 6 caracteres");
             validar=true;
         }
 
