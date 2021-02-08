@@ -41,7 +41,12 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
                 String id = getRef(i).getKey();
 
                 Intent i = new Intent(v.getContext(), PantallaInfoPublicacion.class);
+                i.putExtra("id",id);
                 i.putExtra("Titulo",publicacion.getTitle());
+                i.putExtra("Descripcion",publicacion.getDescription());
+                i.putExtra("Precio",publicacion.getPrecio());
+                Log.d("id wachin", id);
+
                 v.getContext().startActivity(i);
             }
         });
