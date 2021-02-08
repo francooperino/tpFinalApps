@@ -50,6 +50,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     static final int GALERIA_REQUEST = 2;
     Uri imageUri;
     Uri downloadUri;
+    Uri downloadUri2;
+    Uri downloadUri3;
     Boolean tieneImagen=false;
     byte[] datas;
     byte[] datas1;
@@ -66,6 +68,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     Button publicar;
     Toolbar myToolbar;
     private DatabaseReference db;
+
 
     private void lanzarCamara() {
         Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -168,7 +171,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
         }
     }
-    private Boolean subirImagen(UUID id, byte[] imagen) {
+    private Boolean subirImagen(UUID id, byte[] imagen, boolean b, int i) {
         final Boolean[] result = {false};
         // Creamos una referencia a nuestro Storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -200,11 +203,21 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     // URL de descarga del archivo
-                    downloadUri = task.getResult();
+                    switch (i){
+                        case 0: downloadUri = task.getResult();
+                        break;
+                        case 1: downloadUri2 = task.getResult();
+                        break;
+                        case 2: downloadUri3 = task.getResult();
+                        break;
+                    }
                     //Toast.makeText(PantallaCargarImagenes.this, downloadUri.toString(),Toast.LENGTH_LONG).show();
                     Log.d("DEBUG", downloadUri.toString());
                     result[0] =true;
-                    guardarPublicacion();
+                    if(b==true){
+                        guardarPublicacion();
+
+                    }
                 }
                 else{
                     Toast.makeText(PantallaCargarImagenes.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
@@ -224,7 +237,16 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         map.put("modelo",getIntent().getExtras().getString("modelo"));
         map.put("precio",getIntent().getExtras().getString("precio"));
         map.put("description",getIntent().getExtras().getString("comentario"));
-        map.put("image",downloadUri.toString());
+        if (downloadUri!=null){
+            map.put("image1",downloadUri.toString());
+        }
+        if (downloadUri2!=null){
+            map.put("image2",downloadUri2.toString());
+        }
+        if (downloadUri3!=null){
+            map.put("image3",downloadUri3.toString());
+        }
+
 
         db.child("Publicacion").child(id.toString()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -393,10 +415,14 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 //Log.d("ID", ID.toString());
                 //Toast.makeText(PantallaCargarImagenes.this, ID.toString(),Toast.LENGTH_LONG).show();
                 int m =datos.size();
+                boolean b=false;
                 for(int i=0;i<m;i++){
+                    if (i==(m-1)){
+                        b=true;
+                    }
                     UUID ID = UUID.randomUUID();
                     //Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
-                    subirImagen(ID,datos.get(i));
+                    subirImagen(ID,datos.get(i),b,i);
 
                 }
 

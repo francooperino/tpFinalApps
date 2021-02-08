@@ -7,16 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fgb.ventaya.Entity.Publicacion;
-import com.fgb.ventaya.NuevasPublicacionesUI.PantallaPublicacion;
+import com.fgb.ventaya.NuevasPublicacionesUI.PantallaInfoPublicacion;
 import com.fgb.ventaya.R;
-import com.fgb.ventaya.UI.HomeFragment;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -42,7 +40,7 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
                 Log.d("Click","Se hizo click");
                 String id = getRef(i).getKey();
 
-                Intent i = new Intent(v.getContext(), PantallaPublicacion.class);
+                Intent i = new Intent(v.getContext(), PantallaInfoPublicacion.class);
                 i.putExtra("Titulo",publicacion.getTitle());
                 v.getContext().startActivity(i);
             }

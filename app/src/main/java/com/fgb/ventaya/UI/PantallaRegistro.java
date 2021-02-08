@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -17,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import com.fgb.ventaya.NuevasPublicacionesUI.PantallaCargarImagenes;
 import com.fgb.ventaya.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +40,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -73,6 +71,7 @@ public class PantallaRegistro extends AppCompatActivity {
     byte[] datas;
     private TextView fotoText;
     private int valor=0;
+    ProgressBar progressBar;
 
 
     private void lanzarCamara() {
@@ -98,6 +97,7 @@ public class PantallaRegistro extends AppCompatActivity {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             datas = baos.toByteArray();
+
 
         }
         if(requestCode == GALERIA_REQUEST && resultCode == RESULT_OK){
@@ -177,6 +177,7 @@ public class PantallaRegistro extends AppCompatActivity {
         //buttonPerfil = findViewById(R.id.imageButtonPerfil);
         fotoText = findViewById(R.id.textFotoPerfil);
         imagePerfil = findViewById(R.id.imageViewPerfil);
+        progressBar = findViewById(R.id.progressBar1);
         //para mostrar icono flecha atrás
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -243,7 +244,17 @@ public class PantallaRegistro extends AppCompatActivity {
                 user= username.getText().toString();
                 if(!validarCampos((EditText) findViewById(R.id.textNombre))){
                     UUID id = UUID.randomUUID();
-                    subirImagen(id.toString());
+                    //validacion imagen para registrarse
+                    if(valor!=1 && valor!=2){
+                        Toast.makeText(PantallaRegistro.this, "Debe cargar una imagen para registrarse",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        subirImagen(id.toString());
+                        progressBar.setVisibility(View.VISIBLE);
+                        registrar.setVisibility(View.GONE);
+                    }
+
+
                 }
             }
         });
@@ -286,6 +297,7 @@ public class PantallaRegistro extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task2) {
                                 if(task2.isSuccessful()){
+                                    progressBar.setVisibility(View.GONE);
                                     Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
                                     //subirImagen(id);
                                     Intent i = new Intent(PantallaRegistro.this, PantallaPublicaciones.class);
@@ -301,6 +313,8 @@ public class PantallaRegistro extends AppCompatActivity {
                         });
                 }
                 else{
+                    progressBar.setVisibility(View.GONE);
+
                     Toast.makeText(PantallaRegistro.this, "No se pudo crear el usuario",Toast.LENGTH_LONG).show();
                 }
             }
