@@ -7,12 +7,15 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.fgb.ventaya.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +28,7 @@ import com.synnapps.carouselview.ImageListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PantallaInfoPublicacion extends AppCompatActivity {
     Toolbar myToolbar;
@@ -62,6 +66,12 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
         imagenPubli[0] = findViewById(R.id.imagenPubli);
         imagenPubli[1] = findViewById(R.id.imagenPubli2);
         imagenPubli[2] = findViewById(R.id.imagenPubli3);
+        ImageSlider imageSlider = findViewById(R.id.slider);
+        List<SlideModel> slideModels = new ArrayList<>();
+
+        //imageSlider.setImageList(slideModels,true);
+
+
 
         //ahora para recuperar fotos de la publi
         db = FirebaseDatabase.getInstance().getReference();
@@ -81,6 +91,12 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
                             .load(url.get(i))
                             .into(imagenPubli[i]);
                 }
+
+                for (int i=0; i<url.size(); i++) {
+                    slideModels.add(new SlideModel(url.get(i)));
+                }
+                imageSlider.setImageList(slideModels,true);
+
             }
 
             @Override
@@ -113,13 +129,26 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
         }
     };
 
-    //para aplicar funcionalidad flecha atrás
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbarinfopublicaciones_menu, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.favoritos:
+                Toast.makeText(PantallaInfoPublicacion.this, "Agregado a favoritos!", Toast.LENGTH_LONG).show();
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);
