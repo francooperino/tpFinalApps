@@ -229,6 +229,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
     private void guardarPublicacion() {
         UUID id = UUID.randomUUID();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String idUsuario = user.getUid().toString();
         Map<String, Object> map= new HashMap<>();
         map.put("title", getIntent().getExtras().getString("titulo"));
         map.put("tipo",getIntent().getExtras().getString("tipo"));
@@ -237,6 +239,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         map.put("modelo",getIntent().getExtras().getString("modelo"));
         map.put("precio",getIntent().getExtras().getString("precio"));
         map.put("description",getIntent().getExtras().getString("comentario"));
+        map.put("idUsuario",idUsuario);
+
         if (downloadUri!=null){
             map.put("image",downloadUri.toString());
         }
@@ -249,20 +253,16 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
 
         db.child("Publicacion").child(id.toString()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+               // db.child("Users").child(idUsuario).child("Publicacion").child(id.toString())
             @Override
             public void onComplete(@NonNull Task<Void> task2) {
                 if (task2.isSuccessful()) {
                     Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
-
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    String idUsuario = user.getUid().toString();
-
-
                     //agrego
 
-                    List<String> publicaciones = new ArrayList<>();
+                    /*List<String> publicaciones = new ArrayList<>();
                     publicaciones.add(id.toString());
-                    db.child("Users").child(idUsuario).child("publicaciones").push().setValue(id.toString());
+                    db.child("Users").child(idUsuario).child("publicaciones").push().setValue(id.toString());*/
 
                     //
 

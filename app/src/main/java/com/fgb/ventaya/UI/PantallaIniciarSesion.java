@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ public class PantallaIniciarSesion extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     Toolbar myToolbar;
     Button btnIniciarSesion;
+    EditText usuario,password;
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,7 +42,10 @@ public class PantallaIniciarSesion extends AppCompatActivity {
         //inicializar elementos
         myToolbar = findViewById(R.id.toolbarIniciarSesion);
         btnIniciarSesion = findViewById(R.id.buttonIniciarSesion);
+        usuario = findViewById(R.id.editTextTextPersonName);
+        password = findViewById(R.id.editTextTextPassword);
         mAuth = FirebaseAuth.getInstance();
+
         setSupportActionBar(myToolbar);
 
         //para mostrar icono flecha atrás
@@ -51,11 +57,28 @@ public class PantallaIniciarSesion extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PantallaIniciarSesion.this, PantallaPublicaciones.class);
-                i.putExtra("pantalla", "iniciosesion");
-                startActivity(i);
+
+                iniciarSesion();
+
             }
+
+
         });
+
+
+    }
+
+    private void iniciarSesion() {
+            mAuth.signInWithEmailAndPassword(usuario.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Intent i = new Intent(PantallaIniciarSesion.this, PantallaPublicaciones.class);
+                        i.putExtra("pantalla", "iniciosesion");
+                        startActivity(i);
+                    }
+                }
+            });
 
 
     }

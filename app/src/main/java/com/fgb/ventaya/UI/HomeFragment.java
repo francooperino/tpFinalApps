@@ -1,6 +1,7 @@
 package com.fgb.ventaya.UI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.fgb.ventaya.Adapters.RecyclerAdapterPublicaciones;
 import com.fgb.ventaya.Entity.Publicacion;
 import com.fgb.ventaya.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeFragment extends Fragment {
@@ -33,7 +36,9 @@ public class HomeFragment extends Fragment {
         recyclerAdapterPublicaciones = new RecyclerAdapterPublicaciones(options);
         options.getSnapshots();
         recycler.setAdapter(recyclerAdapterPublicaciones);
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String idUsuario = user.getUid().toString();
+        Log.d("debug",idUsuario);
         // Inflate the layout for this fragment
         return view;
     }

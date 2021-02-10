@@ -1,12 +1,12 @@
 package com.fgb.ventaya.Entity;
 
 public class Publicacion {
-    String title, image, description,precio, marca, modelo, telefono, tipo;
+    String title, image, description,precio, marca, modelo, telefono, tipo, idUsuario;
 
     public Publicacion() {
     }
 
-    public Publicacion(String title, String image, String description, String precio, String marca, String modelo, String telefono, String tipo) {
+    public Publicacion(String title, String image, String description, String precio, String marca, String modelo, String telefono, String tipo,String idUsuario) {
         this.title = title;
         this.image = image;
         this.description = description;
@@ -15,7 +15,9 @@ public class Publicacion {
         this.modelo = modelo;
         this.telefono = telefono;
         this.tipo = tipo;
+        this.idUsuario = idUsuario;
     }
+
 
     public String getPrecio() {
         return precio;
@@ -81,5 +83,12 @@ public class Publicacion {
         this.description = description;
     }
 
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 }
 
