@@ -17,6 +17,10 @@ import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.fgb.ventaya.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +32,10 @@ import com.synnapps.carouselview.ImageListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class PantallaInfoPublicacion extends AppCompatActivity {
     Toolbar myToolbar;
@@ -146,7 +153,24 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.favoritos:
-                Toast.makeText(PantallaInfoPublicacion.this, "Agregado a favoritos!", Toast.LENGTH_LONG).show();
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String idUsuario = user.getUid().toString();
+                Map<String, Object> map= new HashMap<>();
+                map.put(idUsuario,"Favorito");
+                db.child("Publicacion").child(idPublicacion).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task2) {
+                        if (task2.isSuccessful()) {
+                            Toast.makeText(PantallaInfoPublicacion.this, "Agregado a favoritos!", Toast.LENGTH_LONG).show();
+
+
+                        } else {
+                            Toast.makeText(PantallaInfoPublicacion.this, "No se pudo establecer como favorito", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
                 return true;
 
         }

@@ -41,78 +41,17 @@ public class MisPublicacionesFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String idUsuario = user.getUid().toString();
-
-
-
-
-
-
-
+        String idUsuario = user.getUid();
         FirebaseRecyclerOptions<Publicacion> options =
                 new FirebaseRecyclerOptions.Builder<Publicacion>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Publicacion").orderByChild("idUsuario").equalTo(idUsuario),Publicacion.class)
                         .build();
 
-
-
         recyclerAdapterPublicaciones = new RecyclerAdapterPublicaciones(options);
         recycler.setAdapter(recyclerAdapterPublicaciones);
 
-
-       /*queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                List<Publicacion> publicaciones = new ArrayList<Publicacion>();
-
-
-                for (DataSnapshot publicacionSnapshot : dataSnapshot.getChildren()) {
-                    Publicacion publicacion = publicacionSnapshot.getValue(Publicacion.class);
-                    if (publicationId.contain(publicacion.)) {
-                        publicacion.add(video);
-                    }
-                }
-
-                // publicacion is now populated with the videos for the users
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-              });*/
-
-                                                 /*  */
-
-
-
-
-        // Inflate the layout for this fragment
         return view;
     }
-
-  /*  private ArrayList<String> collectIdPublication(DataSnapshot dataSnapshot) {
-        ArrayList<String> id = new ArrayList<>();
-
-
-        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-            id.add(String.valueOf(dsp.getValue())); //add result into array list
-
-        }
-        //iterate through each user, ignoring their UID
-       /* for (Map.Entry<String, Object> entry : users.entrySet()){
-
-            //Get user map
-            Map singleUser = (Map) entry.getValue();
-            //Get phone field and append to list
-            phoneNumbers.add((String) singleUser.get());
-        }
-
-        return id;
-
-    }*/
 
     @Override
     public void onStart() {
