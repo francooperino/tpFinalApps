@@ -3,10 +3,10 @@ package com.fgb.ventaya.NuevasPublicacionesUI;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -29,13 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class PantallaInfoPublicacion extends AppCompatActivity {
     Toolbar myToolbar;
@@ -47,6 +44,9 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
     CarouselView carouselView;
     String idPublicacion;
     ImageView imagenPubli [];
+    Boolean publicionFavorita = false;
+    String idUsuario;
+    Boolean inicio = true;
 
     ArrayList<String> url = new ArrayList<String>();
     int[] sampleImages = {R.drawable.baloncesto, R.drawable.categoria_vehiculos, R.drawable.categoria_electronica};
@@ -76,16 +76,21 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
         ImageSlider imageSlider = findViewById(R.id.slider);
         List<SlideModel> slideModels = new ArrayList<>();
 
+
         //imageSlider.setImageList(slideModels,true);
 
 
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        idUsuario = user.getUid();
         //ahora para recuperar fotos de la publi
         db = FirebaseDatabase.getInstance().getReference();
+
+
 
         db.child("Publicacion").child(idPublicacion).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(inicio){
                 for (DataSnapshot isnapshot : snapshot.getChildren()){
                     if (isnapshot.getValue().toString().contains("https://firebasestorage")){
                         url.add(isnapshot.getValue().toString());
@@ -104,7 +109,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
                 }
                 imageSlider.setImageList(slideModels,true);
 
-            }
+            }}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -116,7 +121,10 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
 
 
 
+
+
         setSupportActionBar(myToolbar);
+
         //para mostrar icono flecha atrás
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -154,8 +162,30 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
                 return true;
             case R.id.favoritos:
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String idUsuario = user.getUid().toString();
+
+                inicio = false;
+                if(publicionFavorita){
+                  DatabaseReference mPostReference =  db.child("Publicacion").child(idPublicacion).child(idUsuario);
+
+                  mPostReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                      @Override
+                      public void onComplete(@NonNull Task<Void> task2) {
+                          if (task2.isSuccessful()) {
+                              //item.setIcon(R.drawable.flecha);
+                              Toast.makeText(PantallaInfoPublicacion.this, "Se quito como favorito!", Toast.LENGTH_LONG).show();
+                              publicionFavorita = false;
+                              ActualizarIconoToolbar(item);
+
+
+                          } else {
+                              Toast.makeText(PantallaInfoPublicacion.this, "No se pudo quitar favorito", Toast.LENGTH_LONG).show();
+                              publicionFavorita = false;
+                          }
+                      }
+                  });
+
+                } else {
                 Map<String, Object> map= new HashMap<>();
                 map.put(idUsuario,"Favorito");
                 db.child("Publicacion").child(idPublicacion).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -163,19 +193,64 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task2) {
                         if (task2.isSuccessful()) {
+                            //item.setIcon(R.drawable.flecha);
                             Toast.makeText(PantallaInfoPublicacion.this, "Agregado a favoritos!", Toast.LENGTH_LONG).show();
+                            publicionFavorita = true;
+                            ActualizarIconoToolbar(item);
 
 
                         } else {
                             Toast.makeText(PantallaInfoPublicacion.this, "No se pudo establecer como favorito", Toast.LENGTH_LONG).show();
+                            publicionFavorita = false;
                         }
                     }
-                });
+                }); }
+
                 return true;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem settingsItem = menu.findItem(R.id.favoritos);
+
+
+        db.child("Publicacion").child(idPublicacion).child(idUsuario).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        if (dataSnapshot.getValue() != null) {
+                            if (dataSnapshot.getValue().equals("Favorito")) {
+                                publicionFavorita = true;
+
+                            } else {
+                                publicionFavorita = false;
+                            }
+                        }else {
+                            publicionFavorita = false;
+                        }
+                        ActualizarIconoToolbar(settingsItem);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void ActualizarIconoToolbar( MenuItem settingsItem){
+        if(publicionFavorita){
+            settingsItem.setIcon(ContextCompat.getDrawable(PantallaInfoPublicacion.this, R.drawable.ic_favoritos));
+        }else {
+            settingsItem.setIcon(ContextCompat.getDrawable(PantallaInfoPublicacion.this, R.drawable.ic_no_es_favorito));
+        }
+
     }
 
 
