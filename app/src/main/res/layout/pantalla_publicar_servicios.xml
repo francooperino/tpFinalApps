@@ -51,11 +51,11 @@
 
 
             <EditText
-                android:id="@+id/tipoIndumentaria"
+                android:id="@+id/tipoServicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
-                android:hint="@string/campoTipoIndumentaria"
+                android:hint="@string/campoTipoServicio"
                 android:inputType="textMultiLine"
                 android:textColorHint="@color/blanco_campos"
                 android:layout_marginTop="10dp"
@@ -77,11 +77,11 @@
                 android:background="@drawable/edittext_background"/>
 
             <EditText
-                android:id="@+id/marcaIndumentaria"
+                android:id="@+id/precioServicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
-                android:hint="@string/campoMarca"
+                android:hint="@string/campoPrecio"
                 android:inputType="text"
                 android:textColorHint="@color/blanco_campos"
                 android:padding="8dp"

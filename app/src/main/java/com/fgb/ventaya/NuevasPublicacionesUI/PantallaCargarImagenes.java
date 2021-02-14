@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.fgb.ventaya.Entity.Publicacion;
 import com.fgb.ventaya.R;
+import com.fgb.ventaya.map.MapActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,6 +69,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     ImageButton button3;
     Button publicar;
     Toolbar myToolbar;
+    ImageButton abrirMapa;
+    EditText direccion;
     private DatabaseReference db;
 
 
@@ -170,6 +174,11 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             imagenPlato.setMaxHeight(50);*/
 
         }
+        if(requestCode==3){
+            if (resultCode == RESULT_OK) {
+                direccion.setText((String) data.getExtras().get("direccion"));
+            }
+        }
     }
     private Boolean subirImagen(UUID id, byte[] imagen, boolean b, int i) {
         final Boolean[] result = {false};
@@ -239,6 +248,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         map.put("modelo",getIntent().getExtras().getString("modelo"));
         map.put("precio",getIntent().getExtras().getString("precio"));
         map.put("description",getIntent().getExtras().getString("comentario"));
+        map.put("direccion", direccion.getText().toString());
         map.put("idUsuario",idUsuario);
 
         if (downloadUri!=null){
@@ -304,6 +314,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         myToolbar = findViewById(R.id.toolbarImagenes);
         datos = new ArrayList<byte[]>();
         db = FirebaseDatabase.getInstance().getReference();
+        abrirMapa = findViewById(R.id.buttonMapa);
+        direccion = findViewById(R.id.textDirec);
         //clickListener(button1);
         //clickListener(button2);
         //clickListener(button3);
@@ -312,6 +324,17 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         //para mostrar icono flecha atrás
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        abrirMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int LAUNCH_SECOND_ACTIVITY = 3;
+                Intent i = new Intent(PantallaCargarImagenes.this, MapActivity.class);
+                // i.putExtra("habilitar boton pedir" , "true");
+                startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
+            }
+        });
 
         button1.setOnClickListener(new View.OnClickListener(){
 

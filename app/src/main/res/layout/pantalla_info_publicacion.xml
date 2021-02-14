@@ -246,13 +246,12 @@
             android:text="UBICACIÓN DEL VENDEDOR"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imageView4"
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapaVendedor"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/map" />
+            android:layout_height="200dp" >
+        </com.google.android.gms.maps.MapView>
 
         <Button
             android:id="@+id/button10"

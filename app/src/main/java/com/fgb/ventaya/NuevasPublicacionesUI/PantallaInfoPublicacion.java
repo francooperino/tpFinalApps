@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,9 @@ import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.fgb.ventaya.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PantallaInfoPublicacion extends AppCompatActivity {
+public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapReadyCallback {
     Toolbar myToolbar;
     TextView titulo;
     Intent intent;
@@ -47,6 +51,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
     Boolean publicionFavorita = false;
     String idUsuario;
     Boolean inicio = true;
+    private View googleMap;
 
     ArrayList<String> url = new ArrayList<String>();
     int[] sampleImages = {R.drawable.baloncesto, R.drawable.categoria_vehiculos, R.drawable.categoria_electronica};
@@ -73,6 +78,8 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
         imagenPubli[0] = findViewById(R.id.imagenPubli);
         imagenPubli[1] = findViewById(R.id.imagenPubli2);
         imagenPubli[2] = findViewById(R.id.imagenPubli3);
+        googleMap = findViewById(R.id.mapaVendedor);
+
         ImageSlider imageSlider = findViewById(R.id.slider);
         List<SlideModel> slideModels = new ArrayList<>();
 
@@ -254,4 +261,8 @@ public class PantallaInfoPublicacion extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+    }
 }

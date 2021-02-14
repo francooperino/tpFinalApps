@@ -38,9 +38,14 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -53,7 +58,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     Toolbar myToolbar;
     ActionBarDrawerToggle toggle;
     ImageView ip;
-    FirebaseDatabase storage;
+    DatabaseReference storage;
 
 
 
@@ -66,7 +71,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         myToolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
-
+        storage = FirebaseDatabase.getInstance().getReference();
 
         getSupportFragmentManager().beginTransaction().add(R.id.content, new HomeFragment()).commit();
         setTitle("Home");
@@ -83,6 +88,25 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         if(getIntent().getExtras().getString("pantalla").equals("registro")){
             String s= getIntent().getExtras().getString("image");
             traerImagenPerfil(s);
+        }
+        else{
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String idUsuario = user.getUid();
+
+            storage.child("Users").child(idUsuario).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        traerImagenPerfil(snapshot.child("image").getValue().toString());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
 
 

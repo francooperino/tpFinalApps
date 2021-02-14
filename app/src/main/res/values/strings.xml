@@ -69,7 +69,7 @@
     <string name="tipoCombustible">Tipo de Combustible</string>
     <string name="colorVehiculo">Color</string>
     <string name="botonSiguiente">Siguiente</string>
-    <string name="campoTelefono">Telefono</string>
+    <string name="campoTelefono">Telefono de contacto</string>
     <string name="campoTipoIndumentaria">Tipo de indumentaria (Ej: calzado,remera,etc)</string>
     <string name="campoTituloPublicacion">Titulo para la publicacion</string>
     <string name="descripcionArticulo">Ingrese una descripcion del producto</string>
@@ -88,5 +88,13 @@
 
     //dps quitar
     <string name="twitterUsername">\@joeytribbiani</string>
+    <string name="campoTipoHerramienta">Tipo de producto(Ej: martillo, destornillador, taladro, etc.)</string>
+    <string name="campotalle">Talle</string>
+    <string name="campoTipoMueble">Tipo de mueble (Ej: cama, sillon, mesa, escritorio, etc.)</string>
+    <string name="campoPeso">Peso</string>
+    <string name="campoTipoInstrumento">Tipo de instrumento (Ej: guitarra, bateria, bajo, teclado, etc.)</string>
+    <string name="campoColor">Color</string>
+    <string name="campoTipoServicio">Tipo de servicio (Ej: electricidad, mecanica, plomeria, etc.)</string>
+
 
 </resources>

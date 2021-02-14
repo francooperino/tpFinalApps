@@ -44,7 +44,7 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/nameCompleto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgUser"
@@ -60,7 +60,7 @@
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_name"
+                android:layout_below="@+id/nameCompleto"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif"
                 android:text="new york, usa"
@@ -94,6 +94,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/publiRealizadas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
@@ -102,10 +103,11 @@
                         android:textSize="25sp" />
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="followers"
+                        android:text="publicaciones"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
@@ -119,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/followingBg2"
+                android:background="@android:color/holo_blue_dark"
                 android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp">
@@ -131,6 +133,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/favoritos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
@@ -139,10 +142,11 @@
                         android:textSize="25sp" />
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="following"
+                        android:text="favoritos"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
@@ -179,6 +183,7 @@
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/mailUser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -203,11 +208,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Phone"
+                            android:text="Contraseña"
                             android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/contraUser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -232,11 +238,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Twitter"
+                            android:text="Nombre"
                             android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/nombrePila"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -261,11 +268,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Facebook"
+                            android:text="Username"
                             android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"

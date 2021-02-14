@@ -63,6 +63,18 @@
                 android:background="@drawable/edittext_background"/>
 
 
+            <EditText
+                android:id="@+id/talleIndumentaria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campotalle"
+                android:inputType="text"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"/>
+
 
             <EditText
                 android:id="@+id/textTelefono"
@@ -83,6 +95,18 @@
                 android:fontFamily="@font/montserrat"
                 android:hint="@string/campoMarca"
                 android:inputType="text"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"/>
+
+            <EditText
+                android:id="@+id/precioIndumentaria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoPrecio"
+                android:inputType="numberDecimal"
                 android:textColorHint="@color/blanco_campos"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"
