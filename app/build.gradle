@@ -97,7 +97,7 @@ dependencies {
     // Utilities for Maps SDK for Android (requires Google Play Services)
     implementation 'com.google.maps.android:android-maps-utils:2.1.0'
 
-    
+
 
 
     //noinspection GradleCompatible

@@ -53,6 +53,7 @@ public class PantallaRegistro extends AppCompatActivity {
     private EditText nombre;
     private EditText apellido;
     private EditText username;
+    private EditText telefono;
     private EditText correoElectronico;
     private EditText clave;
     private EditText clave2;
@@ -60,6 +61,7 @@ public class PantallaRegistro extends AppCompatActivity {
     private String mail = "";
     private String contraseña = "";
     private String apellidoo = "";
+    private String tel = "";
     List<String> publicaciones;
     private String user;
     private Boolean tipo= false;
@@ -174,6 +176,7 @@ public class PantallaRegistro extends AppCompatActivity {
         nombre = findViewById(R.id.textNombre);
         apellido = findViewById(R.id.textApellido);
         username = findViewById(R.id.textUsername);
+        telefono = findViewById(R.id.telefonoUser);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
         setSupportActionBar(myToolbar);
@@ -247,6 +250,7 @@ public class PantallaRegistro extends AppCompatActivity {
                 contraseña = clave.getText().toString();
                 apellidoo = apellido.getText().toString();
                 user= username.getText().toString();
+                tel = telefono.getText().toString();
                 if(!validarCampos((EditText) findViewById(R.id.textNombre))){
                     UUID id = UUID.randomUUID();
                     //validacion imagen para registrarse
@@ -297,6 +301,7 @@ public class PantallaRegistro extends AppCompatActivity {
                     map.put("apellido",apellidoo);
                     map.put("user",user);
                     map.put("image",downloadUri.toString());
+                    map.put("telefono",tel);
                     map.put("publicaciones",publicaciones);
 
                         db.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -369,6 +374,10 @@ public class PantallaRegistro extends AppCompatActivity {
         }
         if (clave2.getText().toString().isEmpty()) {
             clave2.setError("Por favor elija una contraseña");
+            validar=true;
+        }
+        if (telefono.getText().toString().isEmpty()) {
+            telefono.setError("Ingrese un numero de telefono");
             validar=true;
         }
 

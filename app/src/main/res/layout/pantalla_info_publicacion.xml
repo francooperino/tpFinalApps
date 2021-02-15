@@ -13,7 +13,7 @@
         android:id="@+id/toolbarPublicacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/holo_blue_dark"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:ignore="MissingConstraints"
@@ -123,6 +123,12 @@
             android:text="$120.000"
             android:textSize="25sp" />
 
+        <TextView
+            android:id="@+id/idUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <View
             android:id="@+id/divider4"
             android:layout_width="match_parent"
@@ -154,7 +160,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="3dp"
-            android:text="una vez vi un zoorro moviendose de manera extraña, enmtonces yo agarre una escopeta y trate de ahuyentarle" />
+            android:text="una vez vi un zorro moviendose de manera extraña, enmtonces yo agarre una escopeta y trate de ahuyentarle" />
 
         <TextView
             android:id="@+id/textView17"
@@ -206,6 +212,13 @@
             android:layout_marginBottom="3dp"
             android:text="• Nombre de usuario:"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/usernameInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            />
 
         <TextView
             android:id="@+id/textView23"
@@ -216,12 +229,28 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/mailInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <TextView
             android:id="@+id/textView22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:text="• Teléfono:"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/telInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            />
 
     </LinearLayout>
 

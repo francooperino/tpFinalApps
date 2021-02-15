@@ -124,6 +124,19 @@
                 android:background="@drawable/edittext_background" />
 
             <EditText
+                android:id="@+id/telefonoUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/campoTelefono"
+                android:inputType="number"
+                android:textColorHint="@color/blanco_campos"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background" />
+
+            <EditText
                 android:id="@+id/textCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

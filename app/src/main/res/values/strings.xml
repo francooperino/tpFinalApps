@@ -95,6 +95,7 @@
     <string name="campoTipoInstrumento">Tipo de instrumento (Ej: guitarra, bateria, bajo, teclado, etc.)</string>
     <string name="campoColor">Color</string>
     <string name="campoTipoServicio">Tipo de servicio (Ej: electricidad, mecanica, plomeria, etc.)</string>
+    <string name="ubicacionVendedor">Ubicacion del vendedor</string>
 
 
 </resources>
