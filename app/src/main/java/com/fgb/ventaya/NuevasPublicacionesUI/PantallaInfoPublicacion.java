@@ -70,6 +70,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
     private MapView googleMap;
     public static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     TextView username, idusuarioInfo, mail, telefono;
+    String latlong;
 
     ArrayList<String> url = new ArrayList<String>();
     int[] sampleImages = {R.drawable.baloncesto, R.drawable.categoria_vehiculos, R.drawable.categoria_electronica};
@@ -126,6 +127,12 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                     if(isnapshot.getKey().toString().equals("idUsuario")){
                         idusuarioInfo.setText(isnapshot.getValue().toString());
                     }
+
+                    if(isnapshot.getKey().toString().equals("latlong")){
+                       latlong = isnapshot.getValue().toString();
+                        Log.d("valorlatlong", latlong);
+                    }
+
 
                 }
                     db.child("Users").child(idusuarioInfo.getText().toString()).addValueEventListener(new ValueEventListener() {
@@ -254,7 +261,9 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        LatLng ubicacion = new LatLng(-31.6355675,-60.6876479);
+
+
+        LatLng ubicacion = new LatLng(-31.6355675,-60.6876479); //bd obtener
         //map.addMarker(new MarkerOptions().position(ubicacion).title("Vendedor"));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(ubicacion,15),100,null);
         CircleOptions circle = new CircleOptions()

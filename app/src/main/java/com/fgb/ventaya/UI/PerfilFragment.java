@@ -22,10 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class PerfilFragment extends Fragment {
+public class  PerfilFragment extends Fragment {
 
     ImageView fotoPerfil;
-    TextView nombreCompleto,favoritos,publicaciones,email,contra,username,nombre;
+    TextView nombreCompleto,favoritos,publicaciones,email,telefono,username,nombre;
     private DatabaseReference dataBase;
     private int contFavoritos, contPublicaciones;
 
@@ -39,7 +39,7 @@ public class PerfilFragment extends Fragment {
         favoritos = view.findViewById(R.id.favoritos);
         publicaciones = view.findViewById(R.id.publiRealizadas);
         email = view.findViewById(R.id.mailUser);
-        contra = view.findViewById(R.id.contraUser);
+        telefono = view.findViewById(R.id.phoneUser);
         username = view.findViewById(R.id.username);
         nombre = view.findViewById(R.id.nombrePila);
         dataBase = FirebaseDatabase.getInstance().getReference();
@@ -61,7 +61,7 @@ public class PerfilFragment extends Fragment {
                     email.setText(snapshot.child("mail").getValue().toString());
                     username.setText(snapshot.child("user").getValue().toString());
                     nombre.setText(snapshot.child("name").getValue().toString());
-                    contra.setText(snapshot.child("contraseña").getValue().toString());
+                    telefono.setText(snapshot.child("telefono").getValue().toString());
 
                 }
             }

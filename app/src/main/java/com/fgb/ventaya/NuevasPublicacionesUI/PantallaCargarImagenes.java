@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import com.fgb.ventaya.Entity.Publicacion;
 import com.fgb.ventaya.R;
+import com.fgb.ventaya.UI.HomeFragment;
 import com.fgb.ventaya.map.MapActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +42,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -72,7 +72,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     ImageButton abrirMapa;
     EditText direccion;
     private DatabaseReference db;
-
+    ProgressBar progressBarPublicar;
+    String latlong;
 
     private void lanzarCamara() {
         Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -177,6 +178,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         if(requestCode==3){
             if (resultCode == RESULT_OK) {
                 direccion.setText((String) data.getExtras().get("direccion"));
+                latlong= (String) data.getExtras().get("latLongPosicion");
+
             }
         }
     }
@@ -229,7 +232,10 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                     }
                 }
                 else{
+                    progressBarPublicar.setVisibility(View.GONE);
+                    publicar.setVisibility(View.VISIBLE);
                     Toast.makeText(PantallaCargarImagenes.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
+
                 }
             }
         });
@@ -250,6 +256,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         map.put("description",getIntent().getExtras().getString("comentario"));
         map.put("direccion", direccion.getText().toString());
         map.put("idUsuario",idUsuario);
+        map.put("latlong",latlong);
 
         if (downloadUri!=null){
             map.put("image",downloadUri.toString());
@@ -268,6 +275,10 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task2) {
                 if (task2.isSuccessful()) {
                     Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
+                    progressBarPublicar.setVisibility(View.GONE);
+                    //Intent intentPublis = new Intent(PantallaCargarImagenes.this, HomeFragment.class);
+                    //startActivity(intentPublis);
+
                     //agrego
 
                     /*List<String> publicaciones = new ArrayList<>();
@@ -294,7 +305,9 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
 
                 } else {
-                    Toast.makeText(PantallaCargarImagenes.this, "No se pudo crear el usuario", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PantallaCargarImagenes.this, "No se pudo crear la publicacion", Toast.LENGTH_LONG).show();
+                    progressBarPublicar.setVisibility(View.GONE);
+                    publicar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -316,6 +329,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference();
         abrirMapa = findViewById(R.id.buttonMapa);
         direccion = findViewById(R.id.textDirec);
+        progressBarPublicar = findViewById(R.id.progressBarLogin);
         //clickListener(button1);
         //clickListener(button2);
         //clickListener(button3);
@@ -467,6 +481,9 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 //Toast.makeText(PantallaCargarImagenes.this, ID.toString(),Toast.LENGTH_LONG).show();
                 int m =datos.size();
                 boolean b=false;
+                publicar.setVisibility(View.GONE);
+                progressBarPublicar.setVisibility(View.VISIBLE);
+
                 for(int i=0;i<m;i++){
                     if (i==(m-1)){
                         b=true;

@@ -73,9 +73,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Intent returnIntent = new Intent();
                 if(direccionMarcador==null){
                     returnIntent.putExtra("direccion", direccionGPS);
+                    returnIntent.putExtra("latLongPosicion",posicionGPS.toString());
                 }
                 else{
                     returnIntent.putExtra("direccion", direccionMarcador);
+                    returnIntent.putExtra("latLongPosicion", latlong.toString());
                 }
                 setResult(PantallaCargarImagenes.RESULT_OK,returnIntent);
                 finish();

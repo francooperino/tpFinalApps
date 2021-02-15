@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class PantallaIniciarSesion extends AppCompatActivity {
     Button btnIniciarSesion;
     EditText usuario,password;
     private FirebaseAuth mAuth;
+    Boolean validar;
+    ProgressBar progresBarLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class PantallaIniciarSesion extends AppCompatActivity {
         usuario = findViewById(R.id.editTextTextPersonName);
         password = findViewById(R.id.editTextTextPassword);
         mAuth = FirebaseAuth.getInstance();
+        validar=true;
+        progresBarLogin = findViewById(R.id.progressBarLogin);
 
         setSupportActionBar(myToolbar);
 
@@ -57,8 +62,24 @@ public class PantallaIniciarSesion extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                validar=true;
+                if (usuario.getText().toString().isEmpty()) {
+                    usuario.setError("Ingresá tu email");
+                    validar=false;
+                }
 
-                iniciarSesion();
+                if (password.getText().toString().isEmpty()) {
+                    password.setError("Ingresá tu contraseña");
+                    validar=false;
+                }
+
+
+                if (validar==true) {
+                    iniciarSesion();
+                    btnIniciarSesion.setVisibility(View.GONE);
+                    progresBarLogin.setVisibility(View.VISIBLE);
+
+                }
 
             }
 
@@ -76,6 +97,14 @@ public class PantallaIniciarSesion extends AppCompatActivity {
                         Intent i = new Intent(PantallaIniciarSesion.this, PantallaPublicaciones.class);
                         i.putExtra("pantalla", "iniciosesion");
                         startActivity(i);
+                        btnIniciarSesion.setVisibility(View.VISIBLE);
+                        progresBarLogin.setVisibility(View.GONE);
+                    }
+                    else {
+                        Toast.makeText(PantallaIniciarSesion.this, "E-mail o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                        btnIniciarSesion.setVisibility(View.VISIBLE);
+                        progresBarLogin.setVisibility(View.GONE);
+
                     }
                 }
             });
