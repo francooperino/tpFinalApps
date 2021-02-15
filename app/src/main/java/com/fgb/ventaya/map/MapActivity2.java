@@ -121,7 +121,8 @@ public class MapActivity2 extends AppCompatActivity implements OnMapReadyCallbac
         myMap.getUiSettings().setZoomControlsEnabled(true);
         myMap.getUiSettings().setCompassEnabled(true);
 
-        LatLng ubicacion = new LatLng(-31.6355675,-60.6876479);
+
+        LatLng ubicacion = (LatLng) getIntent().getExtras().get("latlong");
         myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ubicacion,14),100,null);
         CircleOptions circle = new CircleOptions()
                 .center(ubicacion)
