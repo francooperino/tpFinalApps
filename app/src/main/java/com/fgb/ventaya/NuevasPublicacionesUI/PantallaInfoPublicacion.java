@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
     String latlong;
     ValueEventListener mValueEventListenerLatLong;
     DatabaseReference mPublicationRef;
+    ImageView imgNoUbi;
 
     ArrayList<String> url = new ArrayList<String>();
     int[] sampleImages = {R.drawable.baloncesto, R.drawable.categoria_vehiculos, R.drawable.categoria_electronica};
@@ -96,7 +98,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
         mail = findViewById(R.id.mailInfo);
         telefono = findViewById(R.id.telInfo);
         idusuarioInfo = findViewById(R.id.idUser);
-
+        imgNoUbi = findViewById(R.id.imagNoUbication);
 
         db = FirebaseDatabase.getInstance().getReference();
         mPublicationRef =db.child("Publicacion").child(idPublicacion);
@@ -270,6 +272,12 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+               if(snapshot.getValue()==null){
+                   googleMap.setVisibility(View.GONE);
+                   imgNoUbi.setVisibility(View.VISIBLE);
+                   //Seteo imagen ubicacion no disponible
+               }else {
+
                 String ubicacion = snapshot.getValue().toString();
                 ubicacion = ubicacion.substring(10);
                 ubicacion = ubicacion.replaceFirst(".$","");
@@ -298,7 +306,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                     }
                 });
 
-            }
+            }}
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -1,11 +1,15 @@
 package com.fgb.ventaya.NuevasPublicacionesUI;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -24,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.fgb.ventaya.Notifications.MyNotificationPublisher;
 import com.fgb.ventaya.R;
 import com.fgb.ventaya.UI.HomeFragment;
 import com.fgb.ventaya.map.MapActivity;
@@ -84,6 +89,35 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(galeriaIntent, GALERIA_REQUEST);
     }
+
+
+    class TaskNotificacion extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            AlarmManager alarmManager;
+
+            Intent intent = new Intent(PantallaCargarImagenes.this, MyNotificationPublisher.class);
+
+            alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP, 0, pi);
+                    /*int LAUNCH_SECOND_ACTIVITY = 1;
+                    Intent i = new Intent(PedidoActivity.this, PlatoRecyclerActivity.class);
+                    i.putExtra("habilitar boton pedir" , "false");
+                    startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);*/
+            onBackPressed();
+
+        }
+
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -276,6 +310,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 if (task2.isSuccessful()) {
                     Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
                     progressBarPublicar.setVisibility(View.GONE);
+                    new TaskNotificacion().execute();
                     //Intent intentPublis = new Intent(PantallaCargarImagenes.this, HomeFragment.class);
                     //startActivity(intentPublis);
 

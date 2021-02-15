@@ -297,8 +297,16 @@
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/mapaVendedor"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" >
+                    android:layout_height="200dp">
                 </com.google.android.gms.maps.MapView>
+
+                <ImageView
+                    android:id="@+id/imagNoUbication"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/notmap" />
+
 
                 <Button
                     android:id="@+id/button10"
