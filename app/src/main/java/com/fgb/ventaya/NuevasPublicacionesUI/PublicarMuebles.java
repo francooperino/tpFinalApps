@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,6 +15,7 @@ public class PublicarMuebles extends AppCompatActivity {
 
     Toolbar myToolbar;
     Button botonSiguiente;
+    EditText titulo, tipo, telefono, peso, comentario, precio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,12 @@ public class PublicarMuebles extends AppCompatActivity {
         setContentView(R.layout.pantalla_publicar_muebles);
         myToolbar = findViewById(R.id.toolbarMuebles);
         botonSiguiente = findViewById(R.id.buttonRegistrar);
+        titulo = findViewById(R.id.titulo);
+        tipo = findViewById(R.id.tipoMueble);
+        telefono = findViewById(R.id.textTelefono);
+        peso = findViewById(R.id.pesoMueble);
+        comentario = findViewById(R.id.textDescripcion);
+        precio = findViewById(R.id.precioMueble);
 
         setSupportActionBar(myToolbar);
         //para mostrar icono flecha atrás
@@ -32,6 +40,13 @@ public class PublicarMuebles extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(PublicarMuebles.this, PantallaCargarImagenes.class);
+                i.putExtra("titulo", titulo.getText().toString());
+                i.putExtra("tipo", tipo.getText().toString());
+                i.putExtra("telefono", telefono.getText().toString());
+                i.putExtra("peso",peso.getText().toString());
+                i.putExtra("precio", precio.getText().toString());
+                i.putExtra("comentario", comentario.getText().toString());
+                i.putExtra("categoria", "Muebles");
                 startActivity(i);
 
             }

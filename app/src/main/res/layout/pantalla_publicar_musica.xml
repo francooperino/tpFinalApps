@@ -88,7 +88,7 @@
                 android:background="@drawable/edittext_background"/>
 
             <EditText
-                android:id="@+id/marcaIndumentaria"
+                android:id="@+id/marcaInstrumento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"

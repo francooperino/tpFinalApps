@@ -80,6 +80,212 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     ProgressBar progressBarPublicar;
     String latlong;
 
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pantalla_cargar_imagenes);
+        imagen1 = findViewById(R.id.imageView1);
+        imagen2 = findViewById(R.id.imageView2);
+        imagen3 = findViewById(R.id.imageView3);
+        button1 = findViewById(R.id.imageButton1);
+        button2 = findViewById(R.id.imageButton2);
+        button3 = findViewById(R.id.imageButton3);
+        publicar = findViewById(R.id.button);
+        myToolbar = findViewById(R.id.toolbarImagenes);
+        datos = new ArrayList<byte[]>();
+        db = FirebaseDatabase.getInstance().getReference();
+        abrirMapa = findViewById(R.id.buttonMapa);
+        direccion = findViewById(R.id.textDirec);
+        progressBarPublicar = findViewById(R.id.progressBarLogin);
+        //clickListener(button1);
+        //clickListener(button2);
+        //clickListener(button3);
+
+        setSupportActionBar(myToolbar);
+        //para mostrar icono flecha atrás
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        abrirMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int LAUNCH_SECOND_ACTIVITY = 3;
+                Intent i = new Intent(PantallaCargarImagenes.this, MapActivity.class);
+                // i.putExtra("habilitar boton pedir" , "true");
+                startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                botonSeleccionado=1;
+                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            9999);
+
+                }
+
+                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
+                builder.setMessage("Seleccione desde donde desea cargar la imagen")
+                        .setTitle("Cargar Imagen")
+                        .setPositiveButton("Camara",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        tipo=true;
+                                        lanzarCamara();
+                                    }
+                                })
+                        .setNegativeButton("Galeria",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        abrirGaleria();
+                                        //TODO: pedir permisos galeria
+                                    }
+                                });
+                AlertDialog dialog= builder.create();
+                dialog.show();
+
+
+            }
+
+        });
+
+        button2.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                botonSeleccionado=2;
+                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            9999);
+
+                }
+
+                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
+                builder.setMessage("Seleccione desde donde desea cargar la imagen")
+                        .setTitle("Cargar Imagen")
+                        .setPositiveButton("Camara",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        tipo=true;
+                                        lanzarCamara();
+                                    }
+                                })
+                        .setNegativeButton("Galeria",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        abrirGaleria();
+                                        //TODO: pedir permisos galeria
+                                    }
+                                });
+                AlertDialog dialog= builder.create();
+                dialog.show();
+
+
+            }
+
+        });
+
+        button3.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                botonSeleccionado=3;
+                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            9999);
+
+                }
+
+                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
+                builder.setMessage("Seleccione desde donde desea cargar la imagen")
+                        .setTitle("Cargar Imagen")
+                        .setPositiveButton("Camara",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        tipo=true;
+                                        lanzarCamara();
+                                    }
+                                })
+                        .setNegativeButton("Galeria",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        abrirGaleria();
+                                        //TODO: pedir permisos galeria
+                                    }
+                                });
+                AlertDialog dialog= builder.create();
+                dialog.show();
+
+
+            }
+
+        });
+
+        publicar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                //Log.d("ID", ID.toString());
+                //Toast.makeText(PantallaCargarImagenes.this, ID.toString(),Toast.LENGTH_LONG).show();
+                int m =datos.size();
+                boolean b=false;
+                publicar.setVisibility(View.GONE);
+                progressBarPublicar.setVisibility(View.VISIBLE);
+
+                for(int i=0;i<m;i++){
+                    if (i==(m-1)){
+                        b=true;
+                    }
+                    UUID ID = UUID.randomUUID();
+                    //Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
+                    subirImagen(ID,datos.get(i),b,i);
+
+                }
+
+
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void lanzarCamara() {
         Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camaraIntent, CAMARA_REQUEST);
@@ -284,13 +490,40 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         map.put("title", getIntent().getExtras().getString("titulo"));
         map.put("tipo",getIntent().getExtras().getString("tipo"));
         map.put("telefono",getIntent().getExtras().getString("telefono"));
-        map.put("marca",getIntent().getExtras().getString("marca"));
-        map.put("modelo",getIntent().getExtras().getString("modelo"));
         map.put("precio",getIntent().getExtras().getString("precio"));
         map.put("description",getIntent().getExtras().getString("comentario"));
         map.put("direccion", direccion.getText().toString());
+        map.put("categoria",getIntent().getExtras().getString("categoria"));
         map.put("idUsuario",idUsuario);
         map.put("latlong",latlong);
+        switch (getIntent().getExtras().getString("categoria")){
+            case "Electronica":{
+                map.put("marca",getIntent().getExtras().getString("marca"));
+                map.put("modelo",getIntent().getExtras().getString("modelo"));
+                break;
+
+            }
+            case "Musica":{
+                map.put("marca",getIntent().getExtras().getString("marca"));
+                map.put("color",getIntent().getExtras().getString("color"));
+                break;
+
+            }
+            case "Indumentaria":{
+                map.put("marca",getIntent().getExtras().getString("marca"));
+                map.put("talle",getIntent().getExtras().getString("talle"));
+                break;
+            }
+            case "Muebles":{
+                map.put("peso",getIntent().getExtras().getString("peso"));
+                break;
+
+            }
+        }
+
+
+
+
 
         if (downloadUri!=null){
             map.put("image",downloadUri.toString());
@@ -348,192 +581,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pantalla_cargar_imagenes);
-        imagen1 = findViewById(R.id.imageView1);
-        imagen2 = findViewById(R.id.imageView2);
-        imagen3 = findViewById(R.id.imageView3);
-        button1 = findViewById(R.id.imageButton1);
-        button2 = findViewById(R.id.imageButton2);
-        button3 = findViewById(R.id.imageButton3);
-        publicar = findViewById(R.id.button);
-        myToolbar = findViewById(R.id.toolbarImagenes);
-        datos = new ArrayList<byte[]>();
-        db = FirebaseDatabase.getInstance().getReference();
-        abrirMapa = findViewById(R.id.buttonMapa);
-        direccion = findViewById(R.id.textDirec);
-        progressBarPublicar = findViewById(R.id.progressBarLogin);
-        //clickListener(button1);
-        //clickListener(button2);
-        //clickListener(button3);
 
-        setSupportActionBar(myToolbar);
-        //para mostrar icono flecha atrás
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-        abrirMapa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int LAUNCH_SECOND_ACTIVITY = 3;
-                Intent i = new Intent(PantallaCargarImagenes.this, MapActivity.class);
-                // i.putExtra("habilitar boton pedir" , "true");
-                startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
-            }
-        });
-
-        button1.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                botonSeleccionado=1;
-                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            9999);
-
-                }
-
-                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
-                builder.setMessage("Seleccione desde donde desea cargar la imagen")
-                        .setTitle("Cargar Imagen")
-                        .setPositiveButton("Camara",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        tipo=true;
-                                        lanzarCamara();
-                                    }
-                                })
-                        .setNegativeButton("Galeria",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        abrirGaleria();
-                                        //TODO: pedir permisos galeria
-                                    }
-                                });
-                AlertDialog dialog= builder.create();
-                dialog.show();
-
-
-            }
-
-        });
-
-        button2.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                botonSeleccionado=2;
-                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            9999);
-
-                }
-
-                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
-                builder.setMessage("Seleccione desde donde desea cargar la imagen")
-                        .setTitle("Cargar Imagen")
-                        .setPositiveButton("Camara",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        tipo=true;
-                                        lanzarCamara();
-                                    }
-                                })
-                        .setNegativeButton("Galeria",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        abrirGaleria();
-                                        //TODO: pedir permisos galeria
-                                    }
-                                });
-                AlertDialog dialog= builder.create();
-                dialog.show();
-
-
-            }
-
-        });
-
-        button3.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                botonSeleccionado=3;
-                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            9999);
-
-                }
-
-                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
-                builder.setMessage("Seleccione desde donde desea cargar la imagen")
-                        .setTitle("Cargar Imagen")
-                        .setPositiveButton("Camara",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        tipo=true;
-                                        lanzarCamara();
-                                    }
-                                })
-                        .setNegativeButton("Galeria",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        abrirGaleria();
-                                        //TODO: pedir permisos galeria
-                                    }
-                                });
-                AlertDialog dialog= builder.create();
-                dialog.show();
-
-
-            }
-
-        });
-
-        publicar.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                //Log.d("ID", ID.toString());
-                //Toast.makeText(PantallaCargarImagenes.this, ID.toString(),Toast.LENGTH_LONG).show();
-                int m =datos.size();
-                boolean b=false;
-                publicar.setVisibility(View.GONE);
-                progressBarPublicar.setVisibility(View.VISIBLE);
-
-                for(int i=0;i<m;i++){
-                    if (i==(m-1)){
-                        b=true;
-                    }
-                    UUID ID = UUID.randomUUID();
-                    //Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
-                    subirImagen(ID,datos.get(i),b,i);
-
-                }
-
-
-            }
-        });
-
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

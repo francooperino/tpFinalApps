@@ -48,10 +48,10 @@ import java.util.Map;
 
 public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapReadyCallback {
     Toolbar myToolbar;
-    TextView titulo;
+
     Intent intent;
-    TextView descripcion;
-    TextView precio;
+    TextView descripcion,precio,titulo,tipo;
+
     String concat;
     CarouselView carouselView;
     String idPublicacion;
@@ -67,9 +67,13 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
     ValueEventListener mValueEventListenerLatLong;
     DatabaseReference mPublicationRef;
     ImageView imgNoUbi;
-
+    View LayoutIndumentaria,LayoutMuebles,LayoutMusica,LayoutElectronica;
     ArrayList<String> url = new ArrayList<String>();
     int[] sampleImages = {R.drawable.baloncesto, R.drawable.categoria_vehiculos, R.drawable.categoria_electronica};
+    TextView marcaMusica,colorMusica;
+    TextView marcaElectronica,modeloElectronica;
+    TextView marcaIndumentaria,talleIndumentaria;
+    TextView pesoMuebles;
 
     DatabaseReference db;
 
@@ -89,10 +93,28 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
         precio= findViewById(R.id.precPublicacion);
         concat = "$ " +intent.getExtras().get("Precio").toString();
         precio.setText(concat);
+        tipo = findViewById(R.id.ContenidoTipo);
+        tipo.setText(intent.getExtras().get("Tipo").toString());
         imagenPubli = new ImageView[4];
         imagenPubli[0] = findViewById(R.id.imagenPubli);
         imagenPubli[1] = findViewById(R.id.imagenPubli2);
         imagenPubli[2] = findViewById(R.id.imagenPubli3);
+
+        LayoutIndumentaria = findViewById(R.id.LayoutIndumentaria);
+        marcaIndumentaria = findViewById(R.id.ContenidoMarcaIndum);
+        talleIndumentaria = findViewById(R.id.ContenidoTalleIndum);
+
+        LayoutMuebles = findViewById(R.id.LayoutMuebles);
+        pesoMuebles = findViewById(R.id.ContenidoPesoMueb);
+
+        LayoutMusica = findViewById(R.id.LayoutMusica);
+        marcaMusica = findViewById(R.id.ContenidoMarcaMus);
+        colorMusica = findViewById(R.id.ContenidoColorMus);
+
+        LayoutElectronica = findViewById(R.id.LayoutElectronica);
+        marcaElectronica = findViewById(R.id.ContenidoMarcaElec);
+        modeloElectronica = findViewById(R.id.ContenidoModeloElec);
+
         googleMap = findViewById(R.id.mapaVendedor);
         username = findViewById(R.id.usernameInfo);
         mail = findViewById(R.id.mailInfo);
@@ -124,13 +146,70 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                     if (isnapshot.getValue().toString().contains("https://firebasestorage")){
                         url.add(isnapshot.getValue().toString());
                     }
-                    if(isnapshot.getKey().toString().equals("idUsuario")){
+                    if(isnapshot.getKey().equals("idUsuario")){
                         idusuarioInfo.setText(isnapshot.getValue().toString());
                     }
 
-                    if(isnapshot.getKey().toString().equals("latlong")){
+                    if(isnapshot.getKey().equals("latlong")){
                        latlong = isnapshot.getValue().toString();
                         Log.d("valorlatlong", latlong);
+                    }
+                    if(isnapshot.getKey().equals("categoria")){
+                        switch (isnapshot.getValue().toString()){
+                            //TODOS los campos por defecto deben estar en gone y esto habilita los correspondientes
+                            case "Electronica":{
+                            //TODO: Setear visible campos de electronica
+                                LayoutElectronica.setVisibility(View.VISIBLE);
+                                LayoutMusica.setVisibility(View.GONE);
+                                LayoutIndumentaria.setVisibility(View.GONE);
+                                LayoutMuebles.setVisibility(View.GONE);
+                                marcaElectronica.setText(snapshot.child("marca").getValue().toString());
+                                modeloElectronica.setText(snapshot.child("modelo").getValue().toString());
+
+
+
+                                break;
+                            }
+                            case "Musica":{
+                            //TODO: Setear visible campos de Musica
+                                LayoutMusica.setVisibility(View.VISIBLE);
+                                LayoutElectronica.setVisibility(View.GONE);
+                                LayoutIndumentaria.setVisibility(View.GONE);
+                                LayoutMuebles.setVisibility(View.GONE);
+                                marcaMusica.setText(snapshot.child("marca").getValue().toString());
+                                colorMusica.setText(snapshot.child("color").getValue().toString());
+
+
+
+                                break;
+                               //cargarCamposMusica();
+                            }
+                            case "Indumentaria":{
+                           //TODO: Setear visible campos de Indumentaria
+                                LayoutIndumentaria.setVisibility(View.VISIBLE);
+                                LayoutElectronica.setVisibility(View.GONE);
+                                LayoutMusica.setVisibility(View.GONE);
+                                LayoutMuebles.setVisibility(View.GONE);
+                                marcaIndumentaria.setText(snapshot.child("marca").getValue().toString());
+                                talleIndumentaria.setText(snapshot.child("talle").getValue().toString());
+
+
+                                break;
+                                //cargarCamposIndumentaria();
+                           
+                            }
+                            case "Muebles":{
+                           //TODO: Setear visible campos de Muebles
+                                LayoutMuebles.setVisibility(View.VISIBLE);
+                                LayoutElectronica.setVisibility(View.GONE);
+                                LayoutMusica.setVisibility(View.GONE);
+                                LayoutIndumentaria.setVisibility(View.GONE);
+                                pesoMuebles.setText(snapshot.child("peso").getValue().toString());
+                                break;
+                           
+                            }
+                        }
+
                     }
 
 
@@ -200,6 +279,18 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
     }
 
+    private void cargarCamposMuebles() {
+    }
+
+    private void cargarCamposIndumentaria() {
+    }
+
+    private void cargarCamposMusica() {
+    }
+
+    private void cargarCamposElectronica() {
+    }
+
 
     private void initGoogleMap(Bundle savedInstanceState){
         // *** IMPORTANT ***
@@ -262,11 +353,11 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
 
         Log.d("cambioData", "cambio");
-                addPositionToMap(map);
+                addCircleToMap(map);
 
             }
 
-    private void addPositionToMap(GoogleMap map) {
+    private void addCircleToMap(GoogleMap map) {
 
         FirebaseDatabase.getInstance().getReference().child("Publicacion").child(idPublicacion).child("latlong").addValueEventListener(new ValueEventListener() {
 

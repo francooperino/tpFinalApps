@@ -50,6 +50,7 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
                 i.putExtra("Titulo",publicacion.getTitle());
                 i.putExtra("Descripcion",publicacion.getDescription());
                 i.putExtra("Precio",publicacion.getPrecio());
+                i.putExtra("Tipo",publicacion.getTipo());
 
 
                 v.getContext().startActivity(i);

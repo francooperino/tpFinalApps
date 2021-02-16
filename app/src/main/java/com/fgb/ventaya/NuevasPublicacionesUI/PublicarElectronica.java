@@ -48,6 +48,7 @@ public class PublicarElectronica extends AppCompatActivity {
                 i.putExtra("modelo", modelo.getText().toString());
                 i.putExtra("precio", precio.getText().toString());
                 i.putExtra("comentario", comentario.getText().toString());
+                i.putExtra("categoria","Electronica");
                 startActivity(i);
 
             }
