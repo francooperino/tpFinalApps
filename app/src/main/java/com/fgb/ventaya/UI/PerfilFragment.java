@@ -1,6 +1,8 @@
 package com.fgb.ventaya.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.fgb.ventaya.Entity.Publicacion;
@@ -22,10 +26,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+
+
 public class  PerfilFragment extends Fragment {
 
     ImageView fotoPerfil;
     TextView nombreCompleto,favoritos,publicaciones,email,telefono,username,nombre;
+    View layoutMisPublicaciones;
+    View layoutFavoritos;
     private DatabaseReference dataBase;
     private int contFavoritos, contPublicaciones;
 
@@ -42,9 +51,12 @@ public class  PerfilFragment extends Fragment {
         telefono = view.findViewById(R.id.phoneUser);
         username = view.findViewById(R.id.username);
         nombre = view.findViewById(R.id.nombrePila);
+        layoutMisPublicaciones = view.findViewById(R.id.layoutMisPublicaciones);
+        layoutFavoritos = view.findViewById(R.id.layoutFavoritos);
         dataBase = FirebaseDatabase.getInstance().getReference();
         contFavoritos=0;
         contPublicaciones=0;
+
 
         //obtenemos el id del usuario activo
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -111,6 +123,31 @@ public class  PerfilFragment extends Fragment {
         });
 
         //Log.d("datos", (dataBase.child("Publicacion").orderByChild(idUsuario).equalTo("Favorito")).toString());
+        layoutMisPublicaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction ft = fm.beginTransaction();
+
+                ft.replace(R.id.content, new MisPublicacionesFragment()).commit();
+
+
+            }
+        });
+
+        layoutFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.content, new FavoritosFragment()).commit();
+
+            }
+        });
+
 
 
         // Inflate the layout for this fragment

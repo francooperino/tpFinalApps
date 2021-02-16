@@ -39,7 +39,7 @@ public class MisPublicacionesFragment extends Fragment {
         View view = inflater.inflate(R.layout.pantalla_home, container, false);
         recycler= (RecyclerView) view.findViewById(R.id.recyclerPublicacioness);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        getActivity().setTitle("Mis Publicaciones");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String idUsuario = user.getUid();
         FirebaseRecyclerOptions<Publicacion> options =
