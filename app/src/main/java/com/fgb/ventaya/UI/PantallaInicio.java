@@ -27,11 +27,11 @@ public class PantallaInicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //esto creo que no se hace
-        try {
+        /*try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         setTheme(R.style.ThemeVentaYa);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_inicio);

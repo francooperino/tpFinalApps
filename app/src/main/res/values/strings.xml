@@ -1,7 +1,7 @@
 <resources>
     <string name="bienvenidosString">Bienvenidos</string>
-    <string name="descripcionString">ventaYa es la mejor plataforma para vender y comprar articulos en linea. Que esperas tarambana!!</string>
-    <string name="iniciarsesionString">Iniciar sesión</string>
+    <string name="descripcionString">ventaYA es la mejor plataforma para vender y comprar articulos en linea</string>
+    <string name="iniciarsesionString">Inicio de sesión</string>
     <string name="registrarsenString">Registrarse</string>
     <string name="apellido">Apellido</string>
     <string name="textusername">Nombre de usuario</string>
@@ -96,6 +96,7 @@
     <string name="campoColor">Color</string>
     <string name="campoTipoServicio">Tipo de servicio (Ej: electricidad, mecanica, plomeria, etc.)</string>
     <string name="ubicacionVendedor">Ubicacion del vendedor</string>
+    <string name="inicioSesion">Inicio Sesion</string>
 
 
 </resources>

@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/FotoPerfil"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/colorbutton"
                 android:textSize="18sp" />
 
             <EditText
@@ -164,6 +164,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/botonRegistro"
+                android:background="@drawable/buttoncurvo"
                 android:layout_marginTop="10dp"/>
 
             <ProgressBar

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorbutton">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -65,7 +66,7 @@
                     android:fontFamily="sans-serif"
                     android:text="new york, usa"
                     android:textAllCaps="true"
-                    android:textColor="@color/address"
+                    android:textColor="@color/colorbutton"
                     android:textSize="12sp" />
 
 
@@ -159,7 +160,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorbutton">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -179,7 +181,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Email"
-                            android:textColor="@color/headings"
+                            android:textColor="@color/white"
                             android:textSize="13sp" />
 
                         <TextView
@@ -209,7 +211,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Teléfono"
-                            android:textColor="@color/headings"
+                            android:textColor="@color/white"
                             android:textSize="13sp" />
 
                         <TextView
@@ -239,7 +241,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nombre"
-                            android:textColor="@color/headings"
+                            android:textColor="@color/white"
                             android:textSize="13sp" />
 
                         <TextView
@@ -269,7 +271,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Username"
-                            android:textColor="@color/headings"
+                            android:textColor="@color/white"
                             android:textSize="13sp" />
 
                         <TextView
