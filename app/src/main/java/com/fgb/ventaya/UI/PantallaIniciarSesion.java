@@ -97,8 +97,9 @@ public class PantallaIniciarSesion extends AppCompatActivity {
                         Intent i = new Intent(PantallaIniciarSesion.this, PantallaPublicaciones.class);
                         i.putExtra("pantalla", "iniciosesion");
                         startActivity(i);
-                        btnIniciarSesion.setVisibility(View.VISIBLE);
-                        progresBarLogin.setVisibility(View.GONE);
+                        finish();
+                        //btnIniciarSesion.setVisibility(View.VISIBLE);
+                        //progresBarLogin.setVisibility(View.GONE);
                     }
                     else {
                         Toast.makeText(PantallaIniciarSesion.this, "E-mail o contraseña incorrectos", Toast.LENGTH_SHORT).show();

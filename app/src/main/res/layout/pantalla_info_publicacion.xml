@@ -141,30 +141,36 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="INFORMACIÓN SOBRE EL PRODUCTO"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="• Descripción: "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/descPublicacion"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="una vez vi un zorro moviendose de manera extraña, enmtonces yo agarre una escopeta y trate de ahuyentarle" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="• Descripción:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/descPublicacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/colorPrimary2" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
@@ -172,15 +178,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
                         android:text="• Tipo:"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/ContenidoTipo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/colorPrimary2"
+                        android:layout_marginBottom="3dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -199,15 +207,18 @@
                             android:id="@+id/MarcaIndum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="3dp"
                             android:text="• Marca:"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/ContenidoMarcaIndum"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -219,15 +230,18 @@
                             android:id="@+id/TalleIndum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="3dp"
                             android:text="• Talle:"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/ContenidoTalleIndum"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -248,15 +262,18 @@
                             android:id="@+id/PesoMueb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="3dp"
                             android:text="• Peso:"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/ContenidoPesoMueb"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -276,15 +293,18 @@
                             android:id="@+id/ColorMus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="• Color:"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="3dp"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/ContenidoColorMus"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -297,15 +317,18 @@
                             android:id="@+id/MarcaMus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="3dp"
                             android:text="• Marca:"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/ContenidoMarcaMus"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp"/>
 
 
                     </LinearLayout>
@@ -328,13 +351,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
                             android:text="• Modelo:"
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/ContenidoModeloElec"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp"/>
 
 
                     </LinearLayout>
@@ -348,14 +374,17 @@
                             android:id="@+id/MarcaElec"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="3dp"
                             android:text="• Marca:"
                             android:textStyle="bold"/>
                         <TextView
                             android:id="@+id/ContenidoMarcaElec"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorPrimary2"
+                            android:layout_marginBottom="3dp" />
 
 
                     </LinearLayout>
@@ -373,7 +402,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
@@ -383,73 +411,77 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
                     android:text="INFORMACIÓN SOBRE EL VENDEDOR"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:layout_marginBottom="3dp"
                         android:text="• Nombre de usuario:"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/usernameInfo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorPrimary2"
-                        android:layout_marginBottom="3dp" />
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/colorbutton" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:layout_marginBottom="3dp"
                         android:text="• E-mail:"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/mailInfo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorPrimary2"
-                        android:layout_marginBottom="3dp" />
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/colorbutton" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:layout_marginBottom="3dp"
                         android:text="• Teléfono:"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/telInfo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorPrimary2" />
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/colorbutton" />
                 </LinearLayout>
 
             </LinearLayout>

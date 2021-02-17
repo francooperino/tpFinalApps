@@ -308,28 +308,30 @@ public class PantallaRegistro extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task2) {
                                 if(task2.isSuccessful()){
-                                    progressBar.setVisibility(View.GONE);
+                                    //progressBar.setVisibility(View.GONE);
                                     Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
                                     //subirImagen(id);
                                     Intent i = new Intent(PantallaRegistro.this, PantallaPublicaciones.class);
                                     i.putExtra("image",downloadUri.toString());
                                     i.putExtra("pantalla", "registro");
                                     startActivity(i);
+                                    finish();
 
                                 }
                                 else {
                                     Toast.makeText(PantallaRegistro.this, "No se pudo crear el usuario",Toast.LENGTH_LONG).show();
                                     registrar.setVisibility(View.VISIBLE);
-
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
                         });
                 }
                 else{
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
 
                     Toast.makeText(PantallaRegistro.this, "No se pudo crear el usuario",Toast.LENGTH_LONG).show();
                     registrar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
