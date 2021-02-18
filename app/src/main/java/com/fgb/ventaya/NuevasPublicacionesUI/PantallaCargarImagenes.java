@@ -1,6 +1,7 @@
 package com.fgb.ventaya.NuevasPublicacionesUI;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,14 +24,18 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.fgb.ventaya.Entity.Globales;
 import com.fgb.ventaya.Notifications.MyNotificationPublisher;
 import com.fgb.ventaya.R;
 import com.fgb.ventaya.UI.HomeFragment;
+import com.fgb.ventaya.UI.PantallaIniciarSesion;
+import com.fgb.ventaya.UI.PantallaInicio;
 import com.fgb.ventaya.map.MapActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,6 +60,7 @@ public class PantallaCargarImagenes extends AppCompatActivity {
     private int botonSeleccionado=0;
     static final int CAMARA_REQUEST = 1;
     static final int GALERIA_REQUEST = 2;
+    private static final int CODIGO = 98;
     Uri imageUri;
     Uri downloadUri;
     Uri downloadUri2;
@@ -422,6 +428,16 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
             }
         }
+        if (requestCode == CODIGO) {
+            if (resultCode == Activity.RESULT_OK) {
+                /*Intent intentResul = new Intent();
+                intentResul.putExtra("texto", "cerrar");
+                setResult(Activity.RESULT_OK,intentResul);
+                Intent intentPublis = new Intent(PantallaCargarImagenes.this, HomeFragment.class);
+                startActivity(intentPublis);*/
+
+            }
+        }
     }
     private Boolean subirImagen(UUID id, byte[] imagen, boolean b, int i) {
         final Boolean[] result = {false};
@@ -541,9 +557,22 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task2) {
                 if (task2.isSuccessful()) {
-                    Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
+                    //Globales.publicacionRealizada=1;
+                    Log.d("valorrrsi", String.valueOf(Globales.publicacionRealizada));
+                    //Toast.makeText(PantallaCargarImagenes.this, "Publicacion creada con exito", Toast.LENGTH_LONG).show();
                     progressBarPublicar.setVisibility(View.GONE);
                     new TaskNotificacion().execute();
+                    /*Intent intentResultado = new Intent();
+                    intentResultado.putExtra("texto", "cerrar");
+                    setResult(Activity.RESULT_OK,intentResultado);*/
+                    Intent pubExitosa = new Intent(PantallaCargarImagenes.this, PublicacionExitosa.class);
+                    //startActivityForResult(pubExitosa,CODIGO);
+                    startActivity(pubExitosa);
+                    Intent intentResultado = new Intent();
+                    intentResultado.putExtra("texto", "cerrar");
+                    setResult(Activity.RESULT_OK,intentResultado);
+                    finish();
+
                     //Intent intentPublis = new Intent(PantallaCargarImagenes.this, HomeFragment.class);
                     //startActivity(intentPublis);
 
@@ -661,6 +690,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             }
         });
     }*/
+
+
 
 
 }

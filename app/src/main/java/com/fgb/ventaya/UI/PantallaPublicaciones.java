@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fgb.ventaya.Adapters.RecyclerAdapterPublicaciones;
+import com.fgb.ventaya.Entity.Globales;
 import com.fgb.ventaya.Entity.Publicacion;
 import com.fgb.ventaya.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -54,7 +55,7 @@ import java.io.ByteArrayOutputStream;
 public class PantallaPublicaciones extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    public NavigationView navigationView;
     Toolbar myToolbar;
     ActionBarDrawerToggle toggle;
     ImageView ip;
@@ -84,6 +85,8 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
 
         navigationView.setNavigationItemSelectedListener(this);
+
+
         ip = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageViewPerfil);
         if(getIntent().getExtras().getString("pantalla").equals("registro")){
             String s= getIntent().getExtras().getString("image");
@@ -111,6 +114,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
 
     }
+
 
 
     @Override //agrega la funcionalidad de búsqueda en la toolbar!

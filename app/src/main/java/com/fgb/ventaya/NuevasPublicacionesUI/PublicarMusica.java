@@ -1,4 +1,5 @@
 package com.fgb.ventaya.NuevasPublicacionesUI;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,6 +19,7 @@ public class PublicarMusica extends AppCompatActivity {
     Toolbar myToolbar;
     Button botonSiguiente;
     EditText titulo, tipoInstrumento, textTelefono, marcaInstrumento, precio, colorInstrumento, descripcion;
+    private static final int CODIGO = 987;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,21 @@ public class PublicarMusica extends AppCompatActivity {
                 i.putExtra("marca",marcaInstrumento.getText().toString());
                 i.putExtra("color",colorInstrumento.getText().toString());
                 i.putExtra("categoria","Musica");
-                startActivity(i);
+                startActivityForResult(i,CODIGO);
 
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CODIGO) {
+                finish();
+            }
+        }
     }
 
     //para aplicar funcionalidad flecha atrás

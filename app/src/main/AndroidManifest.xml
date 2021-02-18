@@ -17,6 +17,7 @@
         <activity android:name=".UI.PantallaCategoriaSeleccionada"/>
         <activity android:name=".NuevasPublicacionesUI.PantallaInfoPublicacion" />
         <activity android:name=".UI.PantallaPublicaciones" />
+        <activity android:name=".NuevasPublicacionesUI.PublicacionExitosa" />
         <activity android:name=".UI.PantallaRegistro"
             android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateHidden"/>

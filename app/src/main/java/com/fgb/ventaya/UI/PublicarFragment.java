@@ -1,5 +1,7 @@
 package com.fgb.ventaya.UI;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.fgb.ventaya.Entity.Globales;
 import com.fgb.ventaya.NuevasPublicacionesUI.PublicarDeportes;
 import com.fgb.ventaya.NuevasPublicacionesUI.PublicarElectronica;
 import com.fgb.ventaya.NuevasPublicacionesUI.PublicarHerramientas;
@@ -29,6 +33,7 @@ public class PublicarFragment extends Fragment {
     ImageButton servicios;
     ImageButton deportes;
     ImageButton herramientas;
+    private static final int CODIGO = 987;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public class PublicarFragment extends Fragment {
         servicios = view.findViewById(R.id.imageButton2);
         deportes = view.findViewById(R.id.imageButton3);
         herramientas = view.findViewById(R.id.imageButton4);
+
+
 
         vehiculos.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -63,6 +70,7 @@ public class PublicarFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), PublicarElectronica.class);
                 getActivity().startActivity(i);
+
             }
         });
 
@@ -110,5 +118,29 @@ public class PublicarFragment extends Fragment {
         return view;
 
     }
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CODIGO) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
+            }
+        }
+    }*/
 
-}
+    /*public interface OnCambiarSeleccionListener{
+        public void cambiar();
+    }
+    private OnCambiarSeleccionListener listenerCambiar;
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        try {
+            listenerCambiar = (OnCambiarSeleccionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement interface");
+        }
+
+    }*/
+
+    }
