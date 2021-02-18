@@ -38,6 +38,9 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
         viewHolder.titulo.setText(publicacion.getTitle());
         viewHolder.descripcion.setText(publicacion.getDescription());
         viewHolder.precio.setText(publicacion.getPrecio());
+        if(publicacion.getEstado()!=null){
+            viewHolder.estado.setVisibility(View.VISIBLE);
+        }
         Glide.with(viewHolder.imgPublicacion.getContext()).load(publicacion.getImage()).into(viewHolder.imgPublicacion);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,13 +72,14 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
 
     class viewHolder extends RecyclerView.ViewHolder{
         ImageView imgPublicacion;
-        TextView titulo,descripcion,precio;
+        TextView titulo,descripcion,precio,estado;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             imgPublicacion =(ImageView) itemView.findViewById(R.id.imagePublication);
             titulo =(TextView) itemView.findViewById(R.id.tituloPublicacion);
             descripcion =(TextView) itemView.findViewById(R.id.descripcionPublicacion);
             precio =(TextView) itemView.findViewById(R.id.precioPublicacion);
+            estado = (TextView) itemView.findViewById(R.id.publiNoDisponible);
 
         }
     }

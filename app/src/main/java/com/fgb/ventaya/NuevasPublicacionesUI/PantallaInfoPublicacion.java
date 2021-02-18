@@ -1,12 +1,14 @@
 package com.fgb.ventaya.NuevasPublicacionesUI;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,9 @@ import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.fgb.ventaya.R;
+import com.fgb.ventaya.UI.PantallaInicio;
+import com.fgb.ventaya.UI.PantallaPublicaciones;
+import com.fgb.ventaya.UI.PantallaRegistro;
 import com.fgb.ventaya.map.MapActivity2;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -74,7 +80,8 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
     TextView marcaElectronica,modeloElectronica;
     TextView marcaIndumentaria,talleIndumentaria;
     TextView pesoMuebles;
-
+    Button comprar;
+    TextView compraRealizada;
     DatabaseReference db;
 
     @Override
@@ -95,6 +102,8 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
         precio.setText(concat);
         tipo = findViewById(R.id.ContenidoTipo);
         tipo.setText(intent.getExtras().get("Tipo").toString());
+        comprar = findViewById(R.id.buttonComprar);
+        compraRealizada = findViewById(R.id.prodVendido);
         imagenPubli = new ImageView[4];
         imagenPubli[0] = findViewById(R.id.imagenPubli);
         imagenPubli[1] = findViewById(R.id.imagenPubli2);
@@ -130,11 +139,13 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
         List<SlideModel> slideModels = new ArrayList<>();
 
 
+
         //imageSlider.setImageList(slideModels,true);
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         idUsuario = user.getUid();
+        Log.d("useractivo", idUsuario);
         //ahora para recuperar fotos de la publi
 
 
@@ -142,78 +153,86 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(inicio){
-                for (DataSnapshot isnapshot : snapshot.getChildren()){
-                    if (isnapshot.getValue().toString().contains("https://firebasestorage")){
-                        url.add(isnapshot.getValue().toString());
-                    }
-                    if(isnapshot.getKey().equals("idUsuario")){
-                        idusuarioInfo.setText(isnapshot.getValue().toString());
-                    }
-
-                    if(isnapshot.getKey().equals("latlong")){
-                       latlong = isnapshot.getValue().toString();
-                        Log.d("valorlatlong", latlong);
-                    }
-                    if(isnapshot.getKey().equals("categoria")){
-                        switch (isnapshot.getValue().toString()){
-                            //TODOS los campos por defecto deben estar en gone y esto habilita los correspondientes
-                            case "Electronica":{
-                            //TODO: Setear visible campos de electronica
-                                LayoutElectronica.setVisibility(View.VISIBLE);
-                                LayoutMusica.setVisibility(View.GONE);
-                                LayoutIndumentaria.setVisibility(View.GONE);
-                                LayoutMuebles.setVisibility(View.GONE);
-                                marcaElectronica.setText(snapshot.child("marca").getValue().toString());
-                                modeloElectronica.setText(snapshot.child("modelo").getValue().toString());
-
-
-
-                                break;
+                    for (DataSnapshot isnapshot : snapshot.getChildren()){
+                        if (isnapshot.getValue().toString().contains("https://firebasestorage")){
+                            url.add(isnapshot.getValue().toString());
+                        }
+                        if(isnapshot.getKey().equals("idUsuario")){
+                            idusuarioInfo.setText(isnapshot.getValue().toString());
+                            if(isnapshot.getValue().toString().equals(idUsuario)){
+                                comprar.setVisibility(View.GONE);
                             }
-                            case "Musica":{
-                            //TODO: Setear visible campos de Musica
-                                LayoutMusica.setVisibility(View.VISIBLE);
-                                LayoutElectronica.setVisibility(View.GONE);
-                                LayoutIndumentaria.setVisibility(View.GONE);
-                                LayoutMuebles.setVisibility(View.GONE);
-                                marcaMusica.setText(snapshot.child("marca").getValue().toString());
-                                colorMusica.setText(snapshot.child("color").getValue().toString());
 
-
-
-                                break;
-                               //cargarCamposMusica();
-                            }
-                            case "Indumentaria":{
-                           //TODO: Setear visible campos de Indumentaria
-                                LayoutIndumentaria.setVisibility(View.VISIBLE);
-                                LayoutElectronica.setVisibility(View.GONE);
-                                LayoutMusica.setVisibility(View.GONE);
-                                LayoutMuebles.setVisibility(View.GONE);
-                                marcaIndumentaria.setText(snapshot.child("marca").getValue().toString());
-                                talleIndumentaria.setText(snapshot.child("talle").getValue().toString());
-
-
-                                break;
-                                //cargarCamposIndumentaria();
-                           
-                            }
-                            case "Muebles":{
-                           //TODO: Setear visible campos de Muebles
-                                LayoutMuebles.setVisibility(View.VISIBLE);
-                                LayoutElectronica.setVisibility(View.GONE);
-                                LayoutMusica.setVisibility(View.GONE);
-                                LayoutIndumentaria.setVisibility(View.GONE);
-                                pesoMuebles.setText(snapshot.child("peso").getValue().toString());
-                                break;
-                           
-                            }
                         }
 
+                        if(isnapshot.getKey().equals("latlong")){
+                            latlong = isnapshot.getValue().toString();
+                            Log.d("valorlatlong", latlong);
+                        }
+                        if(isnapshot.getKey().equals("categoria")){
+                            switch (isnapshot.getValue().toString()){
+                                //TODOS los campos por defecto deben estar en gone y esto habilita los correspondientes
+                                case "Electronica":{
+                                    //TODO: Setear visible campos de electronica
+                                    LayoutElectronica.setVisibility(View.VISIBLE);
+                                    LayoutMusica.setVisibility(View.GONE);
+                                    LayoutIndumentaria.setVisibility(View.GONE);
+                                    LayoutMuebles.setVisibility(View.GONE);
+                                    marcaElectronica.setText(snapshot.child("marca").getValue().toString());
+                                    modeloElectronica.setText(snapshot.child("modelo").getValue().toString());
+
+
+
+                                    break;
+                                }
+                                case "Musica":{
+                                    //TODO: Setear visible campos de Musica
+                                    LayoutMusica.setVisibility(View.VISIBLE);
+                                    LayoutElectronica.setVisibility(View.GONE);
+                                    LayoutIndumentaria.setVisibility(View.GONE);
+                                    LayoutMuebles.setVisibility(View.GONE);
+                                    marcaMusica.setText(snapshot.child("marca").getValue().toString());
+                                    colorMusica.setText(snapshot.child("color").getValue().toString());
+
+
+
+                                    break;
+                                    //cargarCamposMusica();
+                                }
+                                case "Indumentaria":{
+                                    //TODO: Setear visible campos de Indumentaria
+                                    LayoutIndumentaria.setVisibility(View.VISIBLE);
+                                    LayoutElectronica.setVisibility(View.GONE);
+                                    LayoutMusica.setVisibility(View.GONE);
+                                    LayoutMuebles.setVisibility(View.GONE);
+                                    marcaIndumentaria.setText(snapshot.child("marca").getValue().toString());
+                                    talleIndumentaria.setText(snapshot.child("talle").getValue().toString());
+
+
+                                    break;
+                                    //cargarCamposIndumentaria();
+
+                                }
+                                case "Muebles":{
+                                    //TODO: Setear visible campos de Muebles
+                                    LayoutMuebles.setVisibility(View.VISIBLE);
+                                    LayoutElectronica.setVisibility(View.GONE);
+                                    LayoutMusica.setVisibility(View.GONE);
+                                    LayoutIndumentaria.setVisibility(View.GONE);
+                                    pesoMuebles.setText(snapshot.child("peso").getValue().toString());
+                                    break;
+
+                                }
+                            }
+
+                        }
+
+
                     }
-
-
-                }
+                    if(snapshot.hasChild("estado")){
+                        comprar.setVisibility(View.GONE);
+                        compraRealizada.setVisibility(View.VISIBLE);
+                    }
                     db.child("Users").child(idusuarioInfo.getText().toString()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -239,19 +258,19 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                         }
                     });
 
-                //traemos imagenes con Glide para cada link
-                for (int i=0; i<url.size(); i++) {
-                    Glide.with(getApplicationContext())
-                            .load(url.get(i))
-                            .into(imagenPubli[i]);
-                }
+                    //traemos imagenes con Glide para cada link
+                    for (int i=0; i<url.size(); i++) {
+                        Glide.with(getApplicationContext())
+                                .load(url.get(i))
+                                .into(imagenPubli[i]);
+                    }
 
-                for (int i=0; i<url.size(); i++) {
-                    slideModels.add(new SlideModel(url.get(i)));
-                }
-                imageSlider.setImageList(slideModels,true);
+                    for (int i=0; i<url.size(); i++) {
+                        slideModels.add(new SlideModel(url.get(i)));
+                    }
+                    imageSlider.setImageList(slideModels,true);
 
-            }}
+                }}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -277,9 +296,60 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
         carouselView.setImageListener(imageListener);
 
+        comprar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaInfoPublicacion.this);
+                builder.setMessage("Seguro que que quieres comprar este producto?")
+                        .setTitle("Confirmar compra")
+                        .setPositiveButton("Si!",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        comprar.setVisibility(View.GONE);
+                                        compraRealizada.setVisibility(View.VISIBLE);
+                                        Map<String, Object> mapa= new HashMap<>();
+                                        mapa.put("estado","Vendido");
+                                        db.child("Publicacion").child(idPublicacion).updateChildren(mapa).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task2) {
+                                                if (task2.isSuccessful()) {
+                                                    //item.setIcon(R.drawable.flecha);
+                                                    Toast.makeText(PantallaInfoPublicacion.this, "Compra realizada, felicitaciones!", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(PantallaInfoPublicacion.this, "No se pudo realizar la compra, vuelva a intentarlo", Toast.LENGTH_LONG).show();
+                                                    comprar.setVisibility(View.VISIBLE);
+                                                    compraRealizada.setVisibility(View.GONE);
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                        .setNegativeButton("Cancelar",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+
+                                    }
+                                });
+                AlertDialog dialog= builder.create();
+                dialog.show();
+            }
+        });
+
     }
 
+    private void cargarCamposMuebles() {
+    }
 
+    private void cargarCamposIndumentaria() {
+    }
+
+    private void cargarCamposMusica() {
+    }
+
+    private void cargarCamposElectronica() {
+    }
 
 
     private void initGoogleMap(Bundle savedInstanceState){
@@ -334,18 +404,18 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-                  ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     9999);
-                    return;
+            return;
 
-                }
+        }
 
 
         Log.d("cambioData", "cambio");
-                addCircleToMap(map);
+        addCircleToMap(map);
 
-            }
+    }
 
     private void addCircleToMap(GoogleMap map) {
 
@@ -353,41 +423,41 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               if(snapshot.getValue()==null){
-                   googleMap.setVisibility(View.GONE);
-                   imgNoUbi.setVisibility(View.VISIBLE);
-                   //Seteo imagen ubicacion no disponible
-               }else {
+                if(snapshot.getValue()==null){
+                    googleMap.setVisibility(View.GONE);
+                    imgNoUbi.setVisibility(View.VISIBLE);
+                    //Seteo imagen ubicacion no disponible
+                }else {
 
-                String ubicacion = snapshot.getValue().toString();
-                ubicacion = ubicacion.substring(10);
-                ubicacion = ubicacion.replaceFirst(".$","");
-                String[] ll =  ubicacion.split(",");
-                double latitude = Double.parseDouble(ll[0]);
-                double longitude = Double.parseDouble(ll[1]);
+                    String ubicacion = snapshot.getValue().toString();
+                    ubicacion = ubicacion.substring(10);
+                    ubicacion = ubicacion.replaceFirst(".$","");
+                    String[] ll =  ubicacion.split(",");
+                    double latitude = Double.parseDouble(ll[0]);
+                    double longitude = Double.parseDouble(ll[1]);
 
-                LatLng latlong = new LatLng(latitude,longitude); //bd obtener
-                //map.addMarker(new MarkerOptions().position(ubicacion).title("Vendedor"));
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlong, 15), 100, null);
-                CircleOptions circle = new CircleOptions()
-                        .center(latlong)
-                        .radius(300)
-                        .fillColor(0x66FF0000)
-                        .strokeColor(0x00000000);
+                    LatLng latlong = new LatLng(latitude,longitude); //bd obtener
+                    //map.addMarker(new MarkerOptions().position(ubicacion).title("Vendedor"));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlong, 15), 100, null);
+                    CircleOptions circle = new CircleOptions()
+                            .center(latlong)
+                            .radius(300)
+                            .fillColor(0x66FF0000)
+                            .strokeColor(0x00000000);
 
-                map.addCircle(circle);
-                map.getUiSettings().setZoomControlsEnabled(false);
-                map.getUiSettings().setAllGesturesEnabled(false);
-                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        Intent i = new Intent(PantallaInfoPublicacion.this, MapActivity2.class);
-                        i.putExtra("latlong",latlong);
-                        startActivity(i);
-                    }
-                });
+                    map.addCircle(circle);
+                    map.getUiSettings().setZoomControlsEnabled(false);
+                    map.getUiSettings().setAllGesturesEnabled(false);
+                    map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(LatLng latLng) {
+                            Intent i = new Intent(PantallaInfoPublicacion.this, MapActivity2.class);
+                            i.putExtra("latlong",latlong);
+                            startActivity(i);
+                        }
+                    });
 
-            }}
+                }}
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -443,46 +513,46 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
                 inicio = false;
                 if(publicionFavorita){
-                  DatabaseReference mPostReference =  db.child("Publicacion").child(idPublicacion).child(idUsuario);
+                    DatabaseReference mPostReference =  db.child("Publicacion").child(idPublicacion).child(idUsuario);
 
-                  mPostReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    mPostReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
 
-                      @Override
-                      public void onComplete(@NonNull Task<Void> task2) {
-                          if (task2.isSuccessful()) {
-                              //item.setIcon(R.drawable.flecha);
-                              Toast.makeText(PantallaInfoPublicacion.this, "Se quito como favorito!", Toast.LENGTH_LONG).show();
-                              publicionFavorita = false;
-                              ActualizarIconoToolbar(item);
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task2) {
+                            if (task2.isSuccessful()) {
+                                //item.setIcon(R.drawable.flecha);
+                                Toast.makeText(PantallaInfoPublicacion.this, "Se quito como favorito!", Toast.LENGTH_LONG).show();
+                                publicionFavorita = false;
+                                ActualizarIconoToolbar(item);
 
 
-                          } else {
-                              Toast.makeText(PantallaInfoPublicacion.this, "No se pudo quitar favorito", Toast.LENGTH_LONG).show();
-                              publicionFavorita = false;
-                          }
-                      }
-                  });
+                            } else {
+                                Toast.makeText(PantallaInfoPublicacion.this, "No se pudo quitar favorito", Toast.LENGTH_LONG).show();
+                                publicionFavorita = false;
+                            }
+                        }
+                    });
 
                 } else {
-                Map<String, Object> map= new HashMap<>();
-                map.put(idUsuario,"Favorito");
-                db.child("Publicacion").child(idPublicacion).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    Map<String, Object> map= new HashMap<>();
+                    map.put(idUsuario,"Favorito");
+                    db.child("Publicacion").child(idPublicacion).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
 
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task2) {
-                        if (task2.isSuccessful()) {
-                            //item.setIcon(R.drawable.flecha);
-                            Toast.makeText(PantallaInfoPublicacion.this, "Agregado a favoritos!", Toast.LENGTH_LONG).show();
-                            publicionFavorita = true;
-                            ActualizarIconoToolbar(item);
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task2) {
+                            if (task2.isSuccessful()) {
+                                //item.setIcon(R.drawable.flecha);
+                                Toast.makeText(PantallaInfoPublicacion.this, "Agregado a favoritos!", Toast.LENGTH_LONG).show();
+                                publicionFavorita = true;
+                                ActualizarIconoToolbar(item);
 
 
-                        } else {
-                            Toast.makeText(PantallaInfoPublicacion.this, "No se pudo establecer como favorito", Toast.LENGTH_LONG).show();
-                            publicionFavorita = false;
+                            } else {
+                                Toast.makeText(PantallaInfoPublicacion.this, "No se pudo establecer como favorito", Toast.LENGTH_LONG).show();
+                                publicionFavorita = false;
+                            }
                         }
-                    }
-                }); }
+                    }); }
 
                 return true;
 

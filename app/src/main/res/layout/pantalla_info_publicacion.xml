@@ -523,10 +523,21 @@
 
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/buttonComprar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="comprar" />
+
+                <TextView
+                    android:id="@+id/prodVendido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:text="PRODUCTO VENDIDO!"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

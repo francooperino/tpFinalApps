@@ -39,7 +39,7 @@ public class PantallaCategoriaSeleccionada extends AppCompatActivity {
 
        categoria = getIntent().getExtras().getString("categoria");
 
-        this.setTitle("Categoria seleccionada - "+categoria);
+        this.setTitle("Categoria "+categoria);
         FirebaseRecyclerOptions<Publicacion> options =
                 new FirebaseRecyclerOptions.Builder<Publicacion>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Publicacion").orderByChild("categoria").equalTo(categoria),Publicacion.class)

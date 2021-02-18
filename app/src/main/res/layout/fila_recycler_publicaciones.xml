@@ -56,6 +56,17 @@
             android:textColor="#000"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/publiNoDisponible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#D5CCCC"
+            android:layout_below="@id/precioPublicacion"
+            android:layout_toRightOf="@id/imagePublication"
+            android:visibility="gone"
+            android:textSize="22sp"
+            android:text="No disponible" />
+
 
     </RelativeLayout>
 

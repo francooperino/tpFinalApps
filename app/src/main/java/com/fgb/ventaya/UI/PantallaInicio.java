@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fgb.ventaya.Entity.Globales;
 import com.fgb.ventaya.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,7 +44,9 @@ public class PantallaInicio extends AppCompatActivity {
             i.putExtra("pantalla", "iniciosesion");
             startActivity(i);
             finish();
+            Globales.sesionIniciada=1;
         }
+
         setTheme(R.style.ThemeVentaYa);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_inicio);
@@ -64,6 +67,7 @@ public class PantallaInicio extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                Globales.sesionIniciada=0;
                 Intent i = new Intent(PantallaInicio.this, PantallaIniciarSesion.class);
                 startActivity(i);
             }

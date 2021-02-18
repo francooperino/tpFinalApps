@@ -214,6 +214,10 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
                                     public void onClick(DialogInterface dlgInt, int i) {
                                         FirebaseAuth.getInstance().signOut();
                                         Toast.makeText(PantallaPublicaciones.this, "Se ha cerrado la sesion", Toast.LENGTH_SHORT).show();
+                                        if(Globales.sesionIniciada==1){
+                                            Intent j = new Intent(PantallaPublicaciones.this, PantallaInicio.class);
+                                            startActivity(j);
+                                        }
                                         finish();
                                     }
                                 })
