@@ -40,6 +40,7 @@ public class PantallaInicio extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         // Iniciar Session como usuario anónimo
         mAuth.signInAnonymously();
+        //Log.d("iduser", mAuth.getCurrentUser().getUid());
 
         //inicializar elementos
         btnLogin = findViewById(R.id.buttonLogin);

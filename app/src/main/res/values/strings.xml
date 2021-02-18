@@ -99,6 +99,7 @@
     <string name="inicioSesion">Inicio Sesion</string>
     <string name="cerrar_sesion">Tu sesión ha sido cerrada correctamente.</string>
     <string name="pubExitosa">Publicacion Exitosa!!!</string>
+    <string name="regExitoso">Registro exitoso</string>
 
 
 </resources>

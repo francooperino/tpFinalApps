@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.fgb.ventaya.NuevasPublicacionesUI.RegistroExitoso;
 import com.fgb.ventaya.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -156,6 +157,8 @@ public class PantallaRegistro extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(PantallaRegistro.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
+                    registrar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -309,11 +312,11 @@ public class PantallaRegistro extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task2) {
                                 if(task2.isSuccessful()){
                                     //progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
                                     //subirImagen(id);
-                                    Intent i = new Intent(PantallaRegistro.this, PantallaPublicaciones.class);
-                                    i.putExtra("image",downloadUri.toString());
-                                    i.putExtra("pantalla", "registro");
+                                    Intent i = new Intent(PantallaRegistro.this, RegistroExitoso.class);
+                                    //i.putExtra("image",downloadUri.toString());
+                                    //i.putExtra("pantalla", "registro");
                                     startActivity(i);
                                     finish();
 

@@ -1,5 +1,6 @@
 package com.fgb.ventaya.UI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,7 +36,9 @@ import com.bumptech.glide.Glide;
 import com.fgb.ventaya.Adapters.RecyclerAdapterPublicaciones;
 import com.fgb.ventaya.Entity.Globales;
 import com.fgb.ventaya.Entity.Publicacion;
+import com.fgb.ventaya.NuevasPublicacionesUI.PantallaCargarImagenes;
 import com.fgb.ventaya.R;
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,11 +94,11 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
 
         ip = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageViewPerfil);
-        if(getIntent().getExtras().getString("pantalla").equals("registro")){
+        /*if(getIntent().getExtras().getString("pantalla").equals("registro")){
             String s= getIntent().getExtras().getString("image");
             traerImagenPerfil(s);
-        }
-        else{
+        }*/
+        //else{
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String idUsuario = user.getUid();
 
@@ -112,7 +116,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
                 }
             });
 
-        }
+        //}
 
     }
 
@@ -200,8 +204,28 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
                 break;
             case R.id.nav_closeSesion:
-                ft.replace(R.id.content, new CerrarSesionFragment(),"Cerrar sesion").commit();
+                //ft.replace(R.id.content, new CerrarSesionFragment(),"Cerrar sesion").commit();
+                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaPublicaciones.this);
+                builder.setMessage("Seguro que desea cerrar sesion?")
+                        .setTitle("Cerrar Sesion")
+                        .setPositiveButton("Si!",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        Toast.makeText(PantallaPublicaciones.this, "Se ha cerrado la sesion", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                })
+                        .setNegativeButton("Cancelar",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dlgInt, int i) {
 
+                                    }
+                                });
+                AlertDialog dialog= builder.create();
+                dialog.show();
                 break;
         }
         setTitle(item.getTitle());
