@@ -21,7 +21,8 @@ public class PantallaInicio extends AppCompatActivity {
 
     //creacion de elementos
     Button btnLogin, btnRegister;
-    private FirebaseAuth mAuth;
+    FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +33,25 @@ public class PantallaInicio extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
+
+
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            // User is signed in (getCurrentUser() will be null if not signed in)
+            Intent i = new Intent(PantallaInicio.this, PantallaPublicaciones.class);
+            i.putExtra("pantalla", "iniciosesion");
+            startActivity(i);
+            finish();
+        }
         setTheme(R.style.ThemeVentaYa);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_inicio);
 
         // Inicializar Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+      //  mAuth = FirebaseAuth.getInstance();
         // Iniciar Session como usuario anónimo
-        mAuth.signInAnonymously();
+       // mAuth.signInAnonymously();
         //Log.d("iduser", mAuth.getCurrentUser().getUid());
 
         //inicializar elementos
@@ -70,7 +82,7 @@ public class PantallaInicio extends AppCompatActivity {
 
     }
 
-    private void signInAnonymously() {
+   /* private void signInAnonymously() {
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -87,7 +99,7 @@ public class PantallaInicio extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
 
 

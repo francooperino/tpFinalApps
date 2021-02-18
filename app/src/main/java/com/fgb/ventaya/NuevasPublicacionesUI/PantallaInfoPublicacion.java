@@ -279,17 +279,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
     }
 
-    private void cargarCamposMuebles() {
-    }
 
-    private void cargarCamposIndumentaria() {
-    }
-
-    private void cargarCamposMusica() {
-    }
-
-    private void cargarCamposElectronica() {
-    }
 
 
     private void initGoogleMap(Bundle savedInstanceState){
