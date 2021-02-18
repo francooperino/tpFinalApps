@@ -52,7 +52,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 
-public class PantallaPublicaciones extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PantallaPublicaciones extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     DrawerLayout drawerLayout;
     public NavigationView navigationView;
@@ -60,6 +60,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     ActionBarDrawerToggle toggle;
     ImageView ip;
     DatabaseReference storage;
+    SearchView searchView;
 
 
 
@@ -73,6 +74,7 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
         storage = FirebaseDatabase.getInstance().getReference();
+
 
         getSupportFragmentManager().beginTransaction().add(R.id.content, new HomeFragment()).commit();
         setTitle("Home");
@@ -112,9 +114,11 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
 
         }
 
-
     }
 
+    public SearchView getSearchView() {
+        return searchView;
+    }
 
 
     @Override //agrega la funcionalidad de búsqueda en la toolbar!
@@ -134,8 +138,11 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
             }
         };
         menu.findItem(R.id.search).setOnActionExpandListener(onActionExpandListener);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setQueryHint("¿Qué querés buscar?");
+        searchView.setOnQueryTextListener(this);
+
+
         return true;
     }
 
@@ -165,27 +172,36 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
     private void selectItemNav(MenuItem item) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        searchView.setVisibility(View.GONE);
         switch (item.getItemId()){
             case R.id.nav_home:
-                ft.replace(R.id.content, new HomeFragment()).commit();
+                searchView.setVisibility(View.VISIBLE);
+                ft.replace(R.id.content, new HomeFragment(),"Home").commit();
+
                 break;
             case R.id.nav_profile:
-                ft.replace(R.id.content, new PerfilFragment()).commit();
+                ft.replace(R.id.content, new PerfilFragment(),"Perfil").commit();
+
                 break;
             case R.id.nav_publicar:
-                ft.replace(R.id.content, new PublicarFragment()).commit();
+                ft.replace(R.id.content, new PublicarFragment(),"Publicar").commit();
+
                 break;
             case R.id.nav_mis_publicaciones:
-                ft.replace(R.id.content, new MisPublicacionesFragment()).commit();
+                ft.replace(R.id.content, new MisPublicacionesFragment(),"Mis Publicaciones").commit();
+
                 break;
             case R.id.nav_categorias:
-                ft.replace(R.id.content, new CategoriasFragment()).commit();
+                ft.replace(R.id.content, new CategoriasFragment(),"Categorias").commit();
+
                 break;
             case R.id.nav_favoritos:
-                ft.replace(R.id.content, new FavoritosFragment()).commit();
+                ft.replace(R.id.content, new FavoritosFragment(),"Favoritos").commit();
+
                 break;
             case R.id.nav_closeSesion:
-                ft.replace(R.id.content, new CerrarSesionFragment()).commit();
+                ft.replace(R.id.content, new CerrarSesionFragment(),"Cerrar sesion").commit();
+
                 break;
         }
         setTitle(item.getTitle());
@@ -199,6 +215,25 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        Bundle bundle = new Bundle();
+        bundle.putString("busqueda", newText );
+        HomeFragment fragInfo = new HomeFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        fragInfo.setArguments(bundle);
+        transaction.replace(R.id.content,fragInfo);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+        return false;
     }
 }
 
