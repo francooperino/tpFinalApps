@@ -11,4 +11,12 @@
         android:icon="@drawable/ic_favoritos"
         app:showAsAction="ifRoom"></item>
 
+    <item
+        android:id="@+id/compartir"
+        android:orderInCategory="400"
+        android:title="Favoritos"
+        android:icon="@drawable/ic_baseline_share_24"
+        app:showAsAction="ifRoom"></item>
+
+
 </menu>

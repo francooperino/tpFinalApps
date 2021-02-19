@@ -582,6 +582,19 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
                 return true;
 
+            case R.id.compartir:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "**Descargá la app VentaYA y conseguí este artículo!**" + System.lineSeparator() +  System.lineSeparator() +
+                        "Título: "+titulo.getText().toString() + System.lineSeparator() +
+                        "Descripción: "+descripcion.getText().toString() + System.lineSeparator() +
+                        "Precio: " + precio.getText().toString());
+
+
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+
         }
 
         return super.onOptionsItemSelected(item);
