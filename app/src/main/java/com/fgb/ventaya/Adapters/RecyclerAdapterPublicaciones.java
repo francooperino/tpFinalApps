@@ -30,7 +30,10 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
         super(options);
 
     }
-
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
 
     @Override
@@ -40,23 +43,25 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
         viewHolder.precio.setText(publicacion.getPrecio());
         if(publicacion.getEstado()!=null){
             viewHolder.estado.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.estado.setVisibility(View.GONE);
         }
         Glide.with(viewHolder.imgPublicacion.getContext()).load(publicacion.getImage()).into(viewHolder.imgPublicacion);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Click","Se hizo click");
-                String id = getRef(i).getKey();
-
+                String id = getRef(getItemViewType(i)).getKey();
                 Intent i = new Intent(v.getContext(), PantallaInfoPublicacion.class);
                 i.putExtra("id",id);
                 i.putExtra("Titulo",publicacion.getTitle());
                 i.putExtra("Descripcion",publicacion.getDescription());
                 i.putExtra("Precio",publicacion.getPrecio());
-                i.putExtra("Tipo",publicacion.getTipo());
+               // i.putExtra("Tipo",publicacion.getTipo());
 
 
                 v.getContext().startActivity(i);
+
             }
         });
 

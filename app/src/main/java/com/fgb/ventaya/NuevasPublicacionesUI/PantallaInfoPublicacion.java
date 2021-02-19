@@ -101,7 +101,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
         concat = "$ " +intent.getExtras().get("Precio").toString();
         precio.setText(concat);
         tipo = findViewById(R.id.ContenidoTipo);
-        tipo.setText(intent.getExtras().get("Tipo").toString());
+        //tipo.setText(intent.getExtras().get("Tipo").toString());
         comprar = findViewById(R.id.buttonComprar);
         compraRealizada = findViewById(R.id.prodVendido);
         imagenPubli = new ImageView[4];
@@ -152,27 +152,39 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
         mPublicationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(inicio){
-                    for (DataSnapshot isnapshot : snapshot.getChildren()){
-                        if (isnapshot.getValue().toString().contains("https://firebasestorage")){
-                            url.add(isnapshot.getValue().toString());
+
+                for (DataSnapshot isnapshot : snapshot.getChildren()) {
+
+                    if (isnapshot.getValue().toString().contains("https://firebasestorage") && inicio) {
+                        String urll = isnapshot.getValue().toString();
+                        if (!url.contains(urll)) {
+                            url.add(urll);
                         }
-                        if(isnapshot.getKey().equals("idUsuario")){
+
+
+
+
+                    }
+
+                    switch (isnapshot.getKey()) {
+                        case "idUsuario": {
+
                             idusuarioInfo.setText(isnapshot.getValue().toString());
-                            if(isnapshot.getValue().toString().equals(idUsuario)){
+                            if (isnapshot.getValue().toString().equals(idUsuario)) {
                                 comprar.setVisibility(View.GONE);
                             }
 
+                            break;
                         }
-
-                        if(isnapshot.getKey().equals("latlong")){
+                        case "latlong": {
                             latlong = isnapshot.getValue().toString();
                             Log.d("valorlatlong", latlong);
+                            break;
                         }
-                        if(isnapshot.getKey().equals("categoria")){
-                            switch (isnapshot.getValue().toString()){
+                        case "categoria": {
+                            switch (isnapshot.getValue().toString()) {
                                 //TODOS los campos por defecto deben estar en gone y esto habilita los correspondientes
-                                case "Electronica":{
+                                case "Electronica": {
                                     //TODO: Setear visible campos de electronica
                                     LayoutElectronica.setVisibility(View.VISIBLE);
                                     LayoutMusica.setVisibility(View.GONE);
@@ -182,10 +194,9 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                                     modeloElectronica.setText(snapshot.child("modelo").getValue().toString());
 
 
-
                                     break;
                                 }
-                                case "Musica":{
+                                case "Musica": {
                                     //TODO: Setear visible campos de Musica
                                     LayoutMusica.setVisibility(View.VISIBLE);
                                     LayoutElectronica.setVisibility(View.GONE);
@@ -195,11 +206,10 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                                     colorMusica.setText(snapshot.child("color").getValue().toString());
 
 
-
                                     break;
                                     //cargarCamposMusica();
                                 }
-                                case "Indumentaria":{
+                                case "Indumentaria": {
                                     //TODO: Setear visible campos de Indumentaria
                                     LayoutIndumentaria.setVisibility(View.VISIBLE);
                                     LayoutElectronica.setVisibility(View.GONE);
@@ -213,7 +223,7 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                                     //cargarCamposIndumentaria();
 
                                 }
-                                case "Muebles":{
+                                case "Muebles": {
                                     //TODO: Setear visible campos de Muebles
                                     LayoutMuebles.setVisibility(View.VISIBLE);
                                     LayoutElectronica.setVisibility(View.GONE);
@@ -224,27 +234,46 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
                                 }
                             }
-
+                            break;
+                        }
+                        case "tipo":{
+                            tipo.setText(isnapshot.getValue().toString());
+                            break;
                         }
 
 
+                    /*if (isnapshot.getKey().equals("idUsuario")) {
+
+
+                    }*/
+
+                  /*  if (isnapshot.getKey().equals("latlong")) {
+
+                    }*/
+                  /*  if (isnapshot.getKey().equals("categoria")) {
+
+
+                    }*/
+
+
                     }
-                    if(snapshot.hasChild("estado")){
+                    if (snapshot.hasChild("estado")) {
                         comprar.setVisibility(View.GONE);
                         compraRealizada.setVisibility(View.VISIBLE);
                     }
+                }
                     db.child("Users").child(idusuarioInfo.getText().toString()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
-                                for (DataSnapshot isnapshot : snapshot.getChildren()){
-                                    if(isnapshot.getKey().toString().equals("user")){
+                            if (snapshot.exists()) {
+                                for (DataSnapshot isnapshot : snapshot.getChildren()) {
+                                    if (isnapshot.getKey().equals("user")) {
                                         username.setText(isnapshot.getValue().toString());
                                     }
-                                    if(isnapshot.getKey().toString().equals("mail")){
+                                    if (isnapshot.getKey().equals("mail")) {
                                         mail.setText(isnapshot.getValue().toString());
                                     }
-                                    if(isnapshot.getKey().toString().equals("telefono")){
+                                    if (isnapshot.getKey().equals("telefono")) {
                                         telefono.setText(isnapshot.getValue().toString());
                                     }
                                 }
@@ -258,20 +287,28 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
                         }
                     });
 
+
+
                     //traemos imagenes con Glide para cada link
-                    for (int i=0; i<url.size(); i++) {
-                        Glide.with(getApplicationContext())
-                                .load(url.get(i))
-                                .into(imagenPubli[i]);
+
+                    if (inicio) {
+                        for (int i = 0; i < url.size(); i++) {
+                            Glide.with(getApplicationContext())
+                                    .load(url.get(i))
+                                    .into(imagenPubli[i]);
+                        }
+
+                        for (int i = 0; i < url.size(); i++) {
+                            slideModels.add(new SlideModel(url.get(i)));
+                        }
+                        imageSlider.setImageList(slideModels, true);
+
                     }
 
-                    for (int i=0; i<url.size(); i++) {
-                        slideModels.add(new SlideModel(url.get(i)));
-                    }
-                    imageSlider.setImageList(slideModels,true);
+                inicio = false;
 
-                }}
 
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -339,17 +376,6 @@ public class PantallaInfoPublicacion extends AppCompatActivity implements OnMapR
 
     }
 
-    private void cargarCamposMuebles() {
-    }
-
-    private void cargarCamposIndumentaria() {
-    }
-
-    private void cargarCamposMusica() {
-    }
-
-    private void cargarCamposElectronica() {
-    }
 
 
     private void initGoogleMap(Bundle savedInstanceState){

@@ -113,7 +113,7 @@ public class PublicarMusica extends AppCompatActivity {
             validar=true;
         }
 
-        if (precio.getText().toString().length()<6) {
+        if (precio.getText().toString().isEmpty()) {
             precio.setError("El precio es obligatorio para la publicacion!");
             validar=true;
         }
