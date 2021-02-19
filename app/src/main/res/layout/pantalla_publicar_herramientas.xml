@@ -115,15 +115,14 @@
                 android:background="@drawable/edittext_background" />
 
 
-
             <Button
                 android:id="@+id/buttonRegistrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="true"
+                android:layout_marginTop="10dp"
+                android:enabled="false"
                 android:fontFamily="@font/montserrat"
-                android:text="@string/botonSiguiente"
-                android:layout_marginTop="10dp"/>
+                android:text="@string/botonSiguiente" />
 
         </LinearLayout>
 

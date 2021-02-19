@@ -2,6 +2,7 @@ package com.fgb.ventaya.NuevasPublicacionesUI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -42,16 +43,19 @@ public class PublicarIndumentaria extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PublicarIndumentaria.this, PantallaCargarImagenes.class);
-                i.putExtra("titulo", titulo.getText().toString());
-                i.putExtra("tipo", tipo.getText().toString());
-                i.putExtra("talle",talle.getText().toString());
-                i.putExtra("telefono", telefono.getText().toString());
-                i.putExtra("marca",marca.getText().toString());
-                i.putExtra("precio", precio.getText().toString());
-                i.putExtra("comentario", comentario.getText().toString());
-                i.putExtra("categoria","Indumentaria");
-                startActivityForResult(i,CODIGO);
+                if(!validarCampos()){
+                    Intent i = new Intent(PublicarIndumentaria.this, PantallaCargarImagenes.class);
+                    i.putExtra("titulo", titulo.getText().toString());
+                    i.putExtra("tipo", tipo.getText().toString());
+                    i.putExtra("talle",talle.getText().toString());
+                    i.putExtra("telefono", telefono.getText().toString());
+                    i.putExtra("marca",marca.getText().toString());
+                    i.putExtra("precio", precio.getText().toString());
+                    i.putExtra("comentario", comentario.getText().toString());
+                    i.putExtra("categoria","Indumentaria");
+                    startActivityForResult(i,CODIGO);
+                }
+
 
             }
         });
@@ -78,6 +82,44 @@ public class PublicarIndumentaria extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    //funcion para validar campos para registrar el user
+    public boolean validarCampos(){
+        boolean validar=false;
+
+        if (titulo.getText().toString().isEmpty()) {
+            titulo.setError("El titulo no puede estar vacio!");
+            validar=true;
+        }
+        if (tipo.getText().toString().isEmpty()) {
+            tipo.setError("El tipo de indumentaria esta vacio!");
+            validar=true;
+        }
+        if (talle.getText().toString().isEmpty()) {
+            talle.setError("Necesitamos el talle del articulo!");
+            validar=true;
+        }
+        if (telefono.getText().toString().isEmpty()) {
+            telefono.setError("Necesitamos un telefono para que te contacten!");
+            validar=true;
+        }
+        if (marca.getText().toString().isEmpty()) {
+            marca.setError("Por favor, dinos la marca de la indumentaria!");
+            validar=true;
+        }
+        if (comentario.getText().toString().isEmpty()) {
+            comentario.setError("Describe con tus palabras el articulo!");
+            validar=true;
+        }
+
+        if (precio.getText().toString().length()<6) {
+            precio.setError("El precio es obligatorio para la publicacion!");
+            validar=true;
+        }
+        return validar;
+    }
+
 
 
 }

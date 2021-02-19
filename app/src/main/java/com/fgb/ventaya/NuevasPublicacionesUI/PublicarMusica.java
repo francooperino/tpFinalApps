@@ -45,16 +45,19 @@ public class PublicarMusica extends AppCompatActivity {
         botonSiguiente.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PublicarMusica.this, PantallaCargarImagenes.class);
-                i.putExtra("titulo", titulo.getText().toString());
-                i.putExtra("tipo", tipoInstrumento.getText().toString());
-                i.putExtra("telefono", textTelefono.getText().toString());
-                i.putExtra("precio", precio.getText().toString());
-                i.putExtra("comentario", descripcion.getText().toString());
-                i.putExtra("marca",marcaInstrumento.getText().toString());
-                i.putExtra("color",colorInstrumento.getText().toString());
-                i.putExtra("categoria","Musica");
-                startActivityForResult(i,CODIGO);
+
+                if(!validarCampos()) {
+                    Intent i = new Intent(PublicarMusica.this, PantallaCargarImagenes.class);
+                    i.putExtra("titulo", titulo.getText().toString());
+                    i.putExtra("tipo", tipoInstrumento.getText().toString());
+                    i.putExtra("telefono", textTelefono.getText().toString());
+                    i.putExtra("precio", precio.getText().toString());
+                    i.putExtra("comentario", descripcion.getText().toString());
+                    i.putExtra("marca", marcaInstrumento.getText().toString());
+                    i.putExtra("color", colorInstrumento.getText().toString());
+                    i.putExtra("categoria", "Musica");
+                    startActivityForResult(i, CODIGO);
+                }
 
             }
         });
@@ -81,6 +84,42 @@ public class PublicarMusica extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    public boolean validarCampos(){
+        boolean validar=false;
+        if (titulo.getText().toString().isEmpty()) {
+            titulo.setError("El titulo no puede estar vacio!");
+            validar=true;
+        }
+        if (tipoInstrumento.getText().toString().isEmpty()) {
+            tipoInstrumento.setError("Por favor, dinos de que tipo es!");
+            validar=true;
+        }
+        if (colorInstrumento.getText().toString().isEmpty()) {
+            colorInstrumento.setError("Necesitamos el color del articulo!");
+            validar=true;
+        }
+        if (textTelefono.getText().toString().isEmpty()) {
+            textTelefono.setError("Necesitamos un telefono para que te contacten!");
+            validar=true;
+        }
+        if (marcaInstrumento.getText().toString().isEmpty()) {
+            marcaInstrumento.setError("Por favor, dinos la marca del articulo");
+            validar=true;
+        }
+        if (descripcion.getText().toString().isEmpty()) {
+            descripcion.setError("Describe con tus palabras el articulo!");
+            validar=true;
+        }
+
+        if (precio.getText().toString().length()<6) {
+            precio.setError("El precio es obligatorio para la publicacion!");
+            validar=true;
+        }
+        return validar;
+    }
+
 
 
 }

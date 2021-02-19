@@ -102,11 +102,12 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String idUsuario = user.getUid();
 
-            storage.child("Users").child(idUsuario).addValueEventListener(new ValueEventListener() {
+            storage.child("Users").child(idUsuario).child("image").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //TODO: bucle infinito por aqui
                     if(snapshot.exists()){
-                        traerImagenPerfil(snapshot.child("image").getValue().toString());
+                        traerImagenPerfil(snapshot.getValue().toString());
                     }
                 }
 

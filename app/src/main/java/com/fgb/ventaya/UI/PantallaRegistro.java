@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.fgb.ventaya.NuevasPublicacionesUI.PantallaInfoPublicacion;
 import com.fgb.ventaya.NuevasPublicacionesUI.RegistroExitoso;
 import com.fgb.ventaya.R;
 import com.google.android.gms.tasks.Continuation;
@@ -79,91 +80,6 @@ public class PantallaRegistro extends AppCompatActivity {
     private int valor=0;
     ProgressBar progressBar;
 
-
-    private void lanzarCamara() {
-        Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camaraIntent, CAMARA_REQUEST);
-    }
-
-    private void abrirGaleria() {
-        Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(galeriaIntent, GALERIA_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMARA_REQUEST  && resultCode == RESULT_OK) {
-            valor=1;
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            float proporcion = 600 / (float) imageBitmap.getWidth();
-            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,600,(int) (imageBitmap.getHeight() * proporcion),false);
-            imagePerfil.setImageBitmap(imageBitmap);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            datas = baos.toByteArray();
-
-
-        }
-        if(requestCode == GALERIA_REQUEST && resultCode == RESULT_OK){
-            imageUri = data.getData();
-            valor=2;
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                float proporcion = 600 / (float) bitmap.getWidth();
-                bitmap = Bitmap.createScaledBitmap(bitmap,600,(int) (bitmap.getHeight() * proporcion),false);
-                imagePerfil.setImageBitmap(bitmap);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                datas = baos.toByteArray(); // Imagen en arreglo de bytes
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    private Boolean subirImagen(String id) {
-        final Boolean[] result = {false};
-        // Creamos una referencia a nuestro Storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        // Creamos una referencia a 'images/plato_id.jpg'
-        StorageReference perfilImagesRef = storageRef.child("fotoPerfil/"+id+".jpg");
-
-        UploadTask uploadTask = perfilImagesRef.putBytes(datas);
-
-        // Registramos un listener para saber el resultado de la operación
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(PantallaRegistro.this, "error",Toast.LENGTH_LONG).show();
-                    throw task.getException();
-                }
-
-                // Continuamos con la tarea para obtener la URL
-                return perfilImagesRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-
-                if (task.isSuccessful()) {
-                    // URL de descarga del archivo
-                    downloadUri = task.getResult();
-                    result[0] =true;
-                    registrarUsuario();
-                }
-                else{
-                    Toast.makeText(PantallaRegistro.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
-                    registrar.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-        return result[0];
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,7 +177,8 @@ public class PantallaRegistro extends AppCompatActivity {
                         Toast.makeText(PantallaRegistro.this, "Debe cargar una imagen para registrarse",Toast.LENGTH_LONG).show();
                     }
                     else {
-                        subirImagen(id.toString());
+                        //subirImagen(id.toString());
+                        registrarUsuario();
                         progressBar.setVisibility(View.VISIBLE);
                         registrar.setVisibility(View.GONE);
                     }
@@ -272,6 +189,113 @@ public class PantallaRegistro extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
+
+    private void lanzarCamara() {
+        Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camaraIntent, CAMARA_REQUEST);
+    }
+
+    private void abrirGaleria() {
+        Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(galeriaIntent, GALERIA_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMARA_REQUEST  && resultCode == RESULT_OK) {
+            valor=1;
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            float proporcion = 600 / (float) imageBitmap.getWidth();
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,600,(int) (imageBitmap.getHeight() * proporcion),false);
+            imagePerfil.setImageBitmap(imageBitmap);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            datas = baos.toByteArray();
+
+
+        }
+        if(requestCode == GALERIA_REQUEST && resultCode == RESULT_OK){
+            imageUri = data.getData();
+            valor=2;
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                float proporcion = 600 / (float) bitmap.getWidth();
+                bitmap = Bitmap.createScaledBitmap(bitmap,600,(int) (bitmap.getHeight() * proporcion),false);
+                imagePerfil.setImageBitmap(bitmap);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                datas = baos.toByteArray(); // Imagen en arreglo de bytes
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private Boolean subirImagen(String id) {
+        final Boolean[] result = {false};
+        // Creamos una referencia a nuestro Storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        // Creamos una referencia a 'images/plato_id.jpg'
+        StorageReference perfilImagesRef = storageRef.child("fotoPerfil/"+id+".jpg");
+
+        UploadTask uploadTask = perfilImagesRef.putBytes(datas);
+
+        // Registramos un listener para saber el resultado de la operación
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(PantallaRegistro.this, "error",Toast.LENGTH_LONG).show();
+                    throw task.getException();
+                }
+
+                // Continuamos con la tarea para obtener la URL
+                return perfilImagesRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+
+                if (task.isSuccessful()) {
+                    // URL de descarga del archivo
+                    downloadUri = task.getResult();
+
+                    Map<String, Object> map= new HashMap<>();
+                    map.put("image",downloadUri.toString());
+                    db.child("Users").child(id).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task2) {
+                            if (task2.isSuccessful()) {
+                                //item.setIcon(R.drawable.flecha);
+                                Toast.makeText(PantallaRegistro.this, "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(PantallaRegistro.this, "No se pudo cargar la imagen", Toast.LENGTH_LONG).show();
+
+                            }
+
+                        }
+                    });
+                    result[0] =true;
+                   // registrarUsuario();
+                }
+                else{
+                    Toast.makeText(PantallaRegistro.this, "No se pudo cargar la imagen",Toast.LENGTH_LONG).show();
+                    registrar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+        return result[0];
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -296,14 +320,14 @@ public class PantallaRegistro extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     String id= mAuth.getCurrentUser().getUid();
-                    //subirImagen(id);
+                    subirImagen(id);
                     Map<String, Object> map= new HashMap<>();
                     map.put("name",name);
                     map.put("mail",mail);
                     map.put("contraseña",contraseña);
                     map.put("apellido",apellidoo);
                     map.put("user",user);
-                    map.put("image",downloadUri.toString());
+                    //map.put("image",downloadUri.toString());
                     map.put("telefono",tel);
                     map.put("publicaciones",publicaciones);
 
@@ -311,14 +335,14 @@ public class PantallaRegistro extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task2) {
                                 if(task2.isSuccessful()){
-                                    //progressBar.setVisibility(View.GONE);
-                                    //Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(PantallaRegistro.this, "Usuario creado con exito",Toast.LENGTH_LONG).show();
                                     //subirImagen(id);
                                     Intent i = new Intent(PantallaRegistro.this, RegistroExitoso.class);
                                     //i.putExtra("image",downloadUri.toString());
-                                    //i.putExtra("pantalla", "registro");
-                                    startActivity(i);
-                                    finish();
+                                   // i.putExtra("pantalla", "registro");
+                                   startActivity(i);
+                                   finish();
 
                                 }
                                 else {

@@ -67,8 +67,9 @@ public class  PerfilFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-
-                    Glide.with(fotoPerfil.getContext()).load(snapshot.child("image").getValue().toString()).into(fotoPerfil);
+                    if(snapshot.child("image").exists()) {
+                        Glide.with(fotoPerfil.getContext()).load(snapshot.child("image").getValue().toString()).into(fotoPerfil);
+                    }
                     nombreCompleto.setText(snapshot.child("name").getValue().toString()+" "+snapshot.child("apellido").getValue().toString());
                     email.setText(snapshot.child("mail").getValue().toString());
                     username.setText(snapshot.child("user").getValue().toString());

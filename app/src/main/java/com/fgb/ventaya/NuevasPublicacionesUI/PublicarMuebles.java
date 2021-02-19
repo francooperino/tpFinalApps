@@ -42,15 +42,18 @@ public class PublicarMuebles extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PublicarMuebles.this, PantallaCargarImagenes.class);
-                i.putExtra("titulo", titulo.getText().toString());
-                i.putExtra("tipo", tipo.getText().toString());
-                i.putExtra("telefono", telefono.getText().toString());
-                i.putExtra("peso",peso.getText().toString());
-                i.putExtra("precio", precio.getText().toString());
-                i.putExtra("comentario", comentario.getText().toString());
-                i.putExtra("categoria", "Muebles");
-                startActivityForResult(i,CODIGO);
+
+                if(!validarCampos()) {
+                    Intent i = new Intent(PublicarMuebles.this, PantallaCargarImagenes.class);
+                    i.putExtra("titulo", titulo.getText().toString());
+                    i.putExtra("tipo", tipo.getText().toString());
+                    i.putExtra("telefono", telefono.getText().toString());
+                    i.putExtra("peso", peso.getText().toString());
+                    i.putExtra("precio", precio.getText().toString());
+                    i.putExtra("comentario", comentario.getText().toString());
+                    i.putExtra("categoria", "Muebles");
+                    startActivityForResult(i, CODIGO);
+                }
 
             }
         });
@@ -78,5 +81,34 @@ public class PublicarMuebles extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public boolean validarCampos(){
+        boolean validar=false;
+        if (titulo.getText().toString().isEmpty()) {
+            titulo.setError("El titulo no puede estar vacio!");
+            validar=true;
+        }
+        if (tipo.getText().toString().isEmpty()) {
+            tipo.setError("Por favor, dinos de que tipo es!");
+            validar=true;
+        }
+        if (peso.getText().toString().isEmpty()) {
+            peso.setError("Necesitamos el peso en Kg!");
+            validar=true;
+        }
+        if (telefono.getText().toString().isEmpty()) {
+            telefono.setError("Necesitamos un telefono para que te contacten!");
+            validar=true;
+        }
+        if (comentario.getText().toString().isEmpty()) {
+            comentario.setError("Describe con tus palabras el articulo!");
+            validar=true;
+        }
+
+        if (precio.getText().toString().length()<6) {
+            precio.setError("El precio es obligatorio para la publicacion!");
+            validar=true;
+        }
+        return validar;
+    }
 
 }
