@@ -40,7 +40,7 @@ public class RecyclerAdapterPublicaciones extends FirebaseRecyclerAdapter<Public
     protected void onBindViewHolder(@NonNull viewHolder viewHolder, int i, @NonNull Publicacion publicacion) {
         viewHolder.titulo.setText(publicacion.getTitle());
         viewHolder.descripcion.setText(publicacion.getDescription());
-        viewHolder.precio.setText(publicacion.getPrecio());
+        viewHolder.precio.setText("$ "+publicacion.getPrecio());
         if(publicacion.getEstado()!=null){
             viewHolder.estado.setVisibility(View.VISIBLE);
         } else {

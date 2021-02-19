@@ -36,6 +36,7 @@ import com.fgb.ventaya.R;
 import com.fgb.ventaya.UI.HomeFragment;
 import com.fgb.ventaya.UI.PantallaIniciarSesion;
 import com.fgb.ventaya.UI.PantallaInicio;
+import com.fgb.ventaya.UI.PantallaPublicaciones;
 import com.fgb.ventaya.map.MapActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -257,20 +258,35 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                 //Log.d("ID", ID.toString());
                 //Toast.makeText(PantallaCargarImagenes.this, ID.toString(),Toast.LENGTH_LONG).show();
                 int m =datos.size();
-                boolean b=false;
-                publicar.setVisibility(View.GONE);
-                progressBarPublicar.setVisibility(View.VISIBLE);
-
-                for(int i=0;i<m;i++){
-                    if (i==(m-1)){
-                        b=true;
-                    }
-                    UUID ID = UUID.randomUUID();
-                    //Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
-                    subirImagen(ID,datos.get(i),b,i);
-
+                if (m==0){
+                    //Toast.makeText(PantallaCargarImagenes.this, "Cargue al menos una imagen para la portada",Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
+                    builder.setMessage("Cargue al menos una imagen para la portada")
+                            .setTitle("Error")
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dlgInt, int i) {
+                                        }
+                                    });
+                    AlertDialog dialog= builder.create();
+                    dialog.show();
                 }
+                else{
+                    boolean b=false;
+                    publicar.setVisibility(View.GONE);
+                    progressBarPublicar.setVisibility(View.VISIBLE);
 
+                    for(int i=0;i<m;i++){
+                        if (i==(m-1)){
+                            b=true;
+                        }
+                        UUID ID = UUID.randomUUID();
+                        //Toast.makeText(PantallaCargarImagenes.this, "Publicacion Creada",Toast.LENGTH_LONG).show();
+                        subirImagen(ID,datos.get(i),b,i);
+
+                    }
+                }
 
             }
         });

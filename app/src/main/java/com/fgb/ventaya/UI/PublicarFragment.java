@@ -33,7 +33,7 @@ public class PublicarFragment extends Fragment {
     ImageButton servicios;
     ImageButton deportes;
     ImageButton herramientas;
-    private static final int CODIGO = 987;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -118,29 +118,6 @@ public class PublicarFragment extends Fragment {
         return view;
 
     }
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == CODIGO) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
-            }
-        }
-    }*/
 
-    /*public interface OnCambiarSeleccionListener{
-        public void cambiar();
-    }
-    private OnCambiarSeleccionListener listenerCambiar;
-    @Override
-    public void onAttach(Context activity) {
-        super.onAttach(activity);
-        try {
-            listenerCambiar = (OnCambiarSeleccionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement interface");
-        }
-
-    }*/
 
     }

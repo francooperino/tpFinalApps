@@ -28,13 +28,6 @@ public class PantallaInicio extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //esto creo que no se hace
-        /*try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
 
         auth = FirebaseAuth.getInstance();
 

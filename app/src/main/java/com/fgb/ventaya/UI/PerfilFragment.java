@@ -1,5 +1,7 @@
 package com.fgb.ventaya.UI;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,7 +40,7 @@ public class  PerfilFragment extends Fragment {
     View layoutFavoritos;
     private DatabaseReference dataBase;
     private int contFavoritos, contPublicaciones;
-
+    private static final int CODIGO = 987;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,11 +131,8 @@ public class  PerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentManager fm = getFragmentManager();
+                listenerCambiar.cambiarAPublicaciones();
 
-                FragmentTransaction ft = fm.beginTransaction();
-
-                ft.replace(R.id.content, new MisPublicacionesFragment()).commit();
 
 
             }
@@ -142,9 +142,7 @@ public class  PerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.content, new FavoritosFragment()).commit();
+                listenerCambiar.cambiarAfavoritos();
 
             }
         });
@@ -153,5 +151,31 @@ public class  PerfilFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CODIGO) {
+                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
+            }
+        }
+    }
+
+    public interface OnCambiarSeleccionListener{
+        public void cambiarAfavoritos();
+        public void cambiarAPublicaciones();
+    }
+    private OnCambiarSeleccionListener listenerCambiar;
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        try {
+            listenerCambiar = (OnCambiarSeleccionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement interface");
+        }
+
     }
 }

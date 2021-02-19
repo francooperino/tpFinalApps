@@ -56,7 +56,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 
-public class PantallaPublicaciones extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+public class PantallaPublicaciones extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, PerfilFragment.OnCambiarSeleccionListener {
 
     DrawerLayout drawerLayout;
     public NavigationView navigationView;
@@ -120,6 +120,8 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         //}
 
     }
+
+
 
     public SearchView getSearchView() {
         return searchView;
@@ -263,6 +265,23 @@ public class PantallaPublicaciones extends AppCompatActivity implements Navigati
         transaction.commit();
 
         return false;
+    }
+
+
+    @Override
+    public void cambiarAfavoritos() {
+        MenuItem menuItem =  navigationView.getMenu().getItem(4);
+        onNavigationItemSelected(menuItem);
+        menuItem.setChecked(true);
+        selectItemNav(menuItem);
+    }
+
+    @Override
+    public void cambiarAPublicaciones() {
+        MenuItem menuItem =  navigationView.getMenu().getItem(2);
+        onNavigationItemSelected(menuItem);
+        menuItem.setChecked(true);
+        selectItemNav(menuItem);
     }
 }
 
