@@ -45,8 +45,7 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:hint="@string/textusername"
-        android:inputType="textPersonName"
-        android:text="francoperino20@gmail.com" />
+        android:inputType="textPersonName" />
 
 
     <EditText
@@ -59,8 +58,7 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:hint="@string/campoContra"
-        android:inputType="textPassword"
-        android:text="franco" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/buttonIniciarSesion"
