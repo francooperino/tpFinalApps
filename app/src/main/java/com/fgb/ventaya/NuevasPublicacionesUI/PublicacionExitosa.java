@@ -19,9 +19,6 @@ public class PublicacionExitosa extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable(){
             public void run(){
-                /*Intent intentResultado = new Intent();
-                intentResultado.putExtra("texto", "cerrar");
-                setResult(Activity.RESULT_OK,intentResultado);*/
                 finish();
             };
         }, DURACION_CARGA_EXITOSA);

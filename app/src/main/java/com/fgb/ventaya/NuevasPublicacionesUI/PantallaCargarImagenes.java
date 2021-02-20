@@ -255,11 +255,8 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                //Log.d("ID", ID.toString());
-                //Toast.makeText(PantallaCargarImagenes.this, ID.toString(),Toast.LENGTH_LONG).show();
                 int m =datos.size();
                 if (m==0){
-                    //Toast.makeText(PantallaCargarImagenes.this, "Cargue al menos una imagen para la portada",Toast.LENGTH_LONG).show();
                     AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
                     builder.setMessage("Cargue al menos una imagen para la portada")
                             .setTitle("Error")
@@ -335,10 +332,6 @@ public class PantallaCargarImagenes extends AppCompatActivity {
             PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
 
             alarmManager.set(AlarmManager.RTC_WAKEUP, 0, pi);
-                    /*int LAUNCH_SECOND_ACTIVITY = 1;
-                    Intent i = new Intent(PedidoActivity.this, PlatoRecyclerActivity.class);
-                    i.putExtra("habilitar boton pedir" , "false");
-                    startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);*/
             onBackPressed();
 
         }
@@ -384,9 +377,6 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                     break;
             }
 
-            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            //datas = baos.toByteArray(); // Imagen en arreglo de bytes
 
         }
         if(requestCode == GALERIA_REQUEST && resultCode == RESULT_OK){
@@ -424,33 +414,17 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                         break;
                 }
 
-                //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                //datas = baos.toByteArray(); // Imagen en arreglo de bytes
+
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            /*imagenPlato.setImageURI(imageUri);
-            imagenPlato.setMaxWidth(50);
-            imagenPlato.setMaxHeight(50);*/
 
         }
         if(requestCode==3){
             if (resultCode == RESULT_OK) {
                 direccion.setText((String) data.getExtras().get("direccion"));
                 latlong= (String) data.getExtras().get("latLongPosicion");
-
-            }
-        }
-        if (requestCode == CODIGO) {
-            if (resultCode == Activity.RESULT_OK) {
-                /*Intent intentResul = new Intent();
-                intentResul.putExtra("texto", "cerrar");
-                setResult(Activity.RESULT_OK,intentResul);
-                Intent intentPublis = new Intent(PantallaCargarImagenes.this, HomeFragment.class);
-                startActivity(intentPublis);*/
 
             }
         }
@@ -589,32 +563,6 @@ public class PantallaCargarImagenes extends AppCompatActivity {
                     setResult(Activity.RESULT_OK,intentResultado);
                     finish();
 
-                    //Intent intentPublis = new Intent(PantallaCargarImagenes.this, HomeFragment.class);
-                    //startActivity(intentPublis);
-
-                    //agrego
-
-                    /*List<String> publicaciones = new ArrayList<>();
-                    publicaciones.add(id.toString());
-                    db.child("Users").child(idUsuario).child("publicaciones").push().setValue(id.toString());*/
-
-                    //
-
-                   /* db.child("Users").child(idUsuario).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()){
-
-                                lista.add(id);
-                                snapshot.child("publicaciones").
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });*/
 
 
                 } else {
@@ -656,58 +604,6 @@ public class PantallaCargarImagenes extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    /*public void clickListener (View vista){
-
-        vista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(v.getId()){
-                    case R.id.imageButton1:
-                        botonSeleccionado=1;
-                        break;
-                    case R.id.imageButton2:
-                        botonSeleccionado=2;
-                        break;
-                    case R.id.imageButton3:
-                        botonSeleccionado=3;
-                        break;
-                }
-                if (ActivityCompat.checkSelfPermission(PantallaCargarImagenes.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(PantallaCargarImagenes.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            9999);
-
-                }
-
-                AlertDialog.Builder builder= new AlertDialog.Builder(PantallaCargarImagenes.this);
-                builder.setMessage("Seleccione desde donde desea cargar la imagen")
-                        .setTitle("Cargar Imagen")
-                        .setPositiveButton("Camara",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        tipo=true;
-                                        lanzarCamara();
-                                    }
-                                })
-                        .setNegativeButton("Galeria",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dlgInt, int i) {
-                                        abrirGaleria();
-                                        //TODO: pedir permisos galeria
-                                    }
-                                });
-                AlertDialog dialog= builder.create();
-                dialog.show();
-            }
-        });
-    }*/
-
-
 
 
 }
